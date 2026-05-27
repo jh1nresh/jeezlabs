@@ -1,65 +1,279 @@
 import Image from "next/image";
+import { PRODUCTS, STATUS_LABEL, type Builder } from "./products";
+
+const builders: Record<Builder, string> = {
+  jhinresh: "built by jhinresh",
+  ezven: "built by ezven",
+  both: "built by jhinresh + ezven",
+};
+
+const builderClass: Record<Builder, string> = {
+  jhinresh: "je-on",
+  ezven: "ez-on",
+  both: "both-on",
+};
 
 export default function Home() {
+  const liveCount = PRODUCTS.filter((product) => product.status === "live").length;
+  const shippedCount = PRODUCTS.filter((product) => product.status === "shipped").length;
+  const buildingCount = PRODUCTS.filter((product) => product.status === "building").length;
+  const featured = PRODUCTS[0];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <main>
+      <header className="site-header" aria-label="Site header">
+        <a className="brand" href="#top" aria-label="JeezLabs home">
+          jeez<em>labs</em>
+        </a>
+        <nav className="site-nav" aria-label="Primary navigation">
+          <a href="#products">products</a>
+          <a href="#builders">builders</a>
+          <a href="https://x.com/0xmaiat" target="_blank" rel="noreferrer">
+            @0xmaiat
+          </a>
+        </nav>
+      </header>
+
+      <section className="hero" id="top">
+        <div className="hero-copy">
+          <p className="meta-line">two builders / public product log / 2026</p>
+          <h1>
+            small products,
+            <br />
+            kept <em>in public.</em>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
+          <p className="hero-lede">
+            JeezLabs is the shared index for experiments we actually ship:
+            agent marketplaces, iOS apps, rental tools, verified reviews,
+            protocol layers, and weird useful internet software.
+          </p>
+          <div className="hero-actions" aria-label="Primary actions">
+            <a className="button primary" href="#products">
+              view products
+            </a>
             <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              className="button secondary"
+              href="https://x.com/virtuals_io/status/2032005346185920557?s=20"
+              target="_blank"
+              rel="noreferrer"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+              virtuals post
+            </a>
+          </div>
+        </div>
+
+        <aside className="hero-panel" aria-label="Current JeezLabs snapshot">
+          <div className="panel-top">
+            <span>featured</span>
+            <span>{featured.year}</span>
+          </div>
+          <div className="featured-preview">
+            <Image
+              src={featured.previewImage}
+              alt={`${featured.name} product preview`}
+              fill
+              priority
+              sizes="(max-width: 900px) 92vw, 520px"
+            />
+          </div>
+          <div className="featured-body">
+            <div>
+              <h2>{featured.name}</h2>
+              <p>{featured.kind}</p>
+            </div>
+            {featured.award ? <span className="award">{featured.award}</span> : null}
+          </div>
+          <dl className="stats-grid" aria-label="Product counts">
+            <div>
+              <dt>live</dt>
+              <dd>{String(liveCount).padStart(2, "0")}</dd>
+            </div>
+            <div>
+              <dt>shipped</dt>
+              <dd>{String(shippedCount).padStart(2, "0")}</dd>
+            </div>
+            <div>
+              <dt>building</dt>
+              <dd>{String(buildingCount).padStart(2, "0")}</dd>
+            </div>
+          </dl>
+        </aside>
+      </section>
+
+      <section className="section intro-grid" aria-label="Lab principles">
+        <div>
+          <p className="section-kicker">how the page works</p>
+          <h2>Not a landing page. A living index.</h2>
+        </div>
+        <div className="principles">
+          <p>
+            New products go at the top. Rough products stay visible. Paused work
+            gets marked instead of hidden.
+          </p>
+          <p>
+            Each row shows who built it with the JEEZ split: JE for Jhinresh,
+            EZ for Ezven, and both lit when the project is shared.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+      </section>
+
+      <section className="section products-section" id="products">
+        <div className="section-head">
+          <div>
+            <p className="section-kicker">products</p>
+            <h2>{PRODUCTS.length} entries, newest first.</h2>
+          </div>
+          <p>
+            Hover or scan the cards. Web products link to live pages when they
+            exist; iOS and private-stage projects route to GitHub.
+          </p>
+        </div>
+
+        <div className="product-grid">
+          {PRODUCTS.map((product, index) => {
+            const primaryHref = product.href ?? product.repo ?? "#";
+
+            return (
+              <article className="product-card" key={product.slug}>
+                <a
+                  className="preview-link"
+                  href={primaryHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Open ${product.name}`}
+                >
+                  <Image
+                    src={product.previewImage}
+                    alt={`${product.name} preview`}
+                    fill
+                    sizes="(max-width: 760px) 92vw, (max-width: 1200px) 44vw, 360px"
+                  />
+                </a>
+
+                <div className="product-content">
+                  <div className="product-meta">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <span className={`status ${product.status}`}>
+                      {STATUS_LABEL[product.status]}
+                    </span>
+                  </div>
+
+                  <div className="title-row">
+                    <h3>{product.name}</h3>
+                    {product.award ? <span className="award small">{product.award}</span> : null}
+                  </div>
+
+                  <p className="kind">{product.kind}</p>
+                  <p className="description">{product.description}</p>
+
+                  <ul className="note-list" aria-label={`${product.name} highlights`}>
+                    {product.notes.map((note) => (
+                      <li key={note}>{note}</li>
+                    ))}
+                  </ul>
+
+                  <div className="card-foot">
+                    <span
+                      className={`jeez-mark ${builderClass[product.builder]}`}
+                      aria-label={builders[product.builder]}
+                    >
+                      <span>JE</span>
+                      <span>EZ</span>
+                    </span>
+                    <div className="links">
+                      {product.href ? (
+                        <a href={product.href} target="_blank" rel="noreferrer">
+                          live
+                        </a>
+                      ) : null}
+                      {product.repo ? (
+                        <a href={product.repo} target="_blank" rel="noreferrer">
+                          gh
+                        </a>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="section builders" id="builders">
+        <div>
+          <p className="section-kicker">builders</p>
+          <h2>
+            two friends.
+            <br />
+            one lab.
+          </h2>
+        </div>
+
+        <div className="builder-cards">
+          <article className="builder-card">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              src="/avatars/jhinresh.jpg"
+              alt="Jhinresh profile picture"
+              width={104}
+              height={104}
             />
-            Deploy Now
+            <div>
+              <h3>jhinresh</h3>
+              <p>builder / product</p>
+              <div className="links">
+                <a href="https://github.com/JhiNResH" target="_blank" rel="noreferrer">
+                  github
+                </a>
+                <a href="https://x.com/JhiNResH" target="_blank" rel="noreferrer">
+                  x
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article className="builder-card">
+            <Image
+              src="/avatars/ezven.jpg"
+              alt="Ezven profile picture"
+              width={104}
+              height={104}
+            />
+            <div>
+              <h3>ezven</h3>
+              <p>builder / product</p>
+              <div className="links">
+                <a href="https://github.com/Ferxxo-pa" target="_blank" rel="noreferrer">
+                  github
+                </a>
+                <a href="https://x.com/ezveng" target="_blank" rel="noreferrer">
+                  x
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <footer className="site-footer">
+        <span>jeezlabs / product index</span>
+        <div className="links">
+          <a
+            href="https://x.com/virtuals_io/status/2032005346185920557?s=20"
+            target="_blank"
+            rel="noreferrer"
+          >
+            virtuals post
           </a>
           <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="https://x.com/0xmaiat"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noreferrer"
           >
-            Documentation
+            @0xmaiat
           </a>
         </div>
-      </main>
-    </div>
+      </footer>
+    </main>
   );
 }
