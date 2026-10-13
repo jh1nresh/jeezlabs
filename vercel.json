@@ -1,12 +1,15 @@
 {
   "framework": "nextjs",
-  "headers": [
+  "routes": [
     {
-      "source": "/(.*)",
-      "headers": [
+      "src": "/(.*)",
+      "continue": true,
+      "transforms": [
         {
-          "key": "Vary",
-          "value": "Accept, RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch"
+          "type": "response.headers",
+          "op": "append",
+          "target": { "key": "Vary" },
+          "args": "Accept"
         }
       ]
     }

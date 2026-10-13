@@ -17,12 +17,12 @@ The product Markdown uses `app/products.ts`, the same source as the homepage.
 When adding a new HTML page, add its Markdown representation in `proxy.ts` and
 include it in the sitemap and tests. `next.config.ts` inventories public files at
 build time so assets bypass content negotiation without maintaining a second list.
-Markdown and 406 responses are private/no-store. Next.js 16.2.4 overwrites the
-HTML Vary header, so `vercel.json` adds Accept together with the existing Next.js
-Vary fields at the hosting layer. Local Next.js cannot exercise that hosting
+Negotiated responses are private/no-store. Next.js 16.2.4 overwrites the
+HTML Vary header, including ordinary Vercel header configuration, so `vercel.json`
+uses a response-header transform to append Accept while preserving Next.js Vary
+fields. Local Next.js cannot exercise that hosting
 configuration: tests require HTML Vary when TEST_BASE_URL is set, and it must be
-verified on the Vercel deployment before release. Styles, layout, caching of HTML,
-and interactions are unchanged.
+verified on the Vercel deployment before release. Styles, layout, and interactions are unchanged.
 
 ## Verification
 
