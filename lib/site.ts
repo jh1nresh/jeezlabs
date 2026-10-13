@@ -9,5 +9,5 @@ export const organization = {
   name: "JeezLabs",
   description: SITE_DESCRIPTION,
   url: `${SITE_URL}/`,
-  sameAs: ["https://github.com/JhiNResH/jeezlabs"],
+  sameAs: ["https://github.com/jh1nresh/jeezlabs"],
 };

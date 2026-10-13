@@ -82,7 +82,7 @@ test('home HTML exposes brand metadata and parseable Organization JSON-LD withou
   assert.equal(json?.['@type'], 'Organization');
   assert.equal(json?.name, 'JeezLabs');
   assert.equal(json?.url, 'https://www.jeezlabs.io/');
-  assert.ok(json.description.length > 20); assert.ok(json.sameAs[0].startsWith('https://github.com/'));
+  assert.ok(json.description.length > 20); assert.deepEqual(json.sameAs, ['https://github.com/jh1nresh/jeezlabs']);
   for (const p of PRODUCTS) for (const url of [p.href, p.repo].filter(Boolean)) assert.ok(body.includes(`href="${url}"`));
 });
 test('About keeps HTML and gains Markdown with its own canonical', async () => {
