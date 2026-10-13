@@ -1,0 +1,81 @@
+name: Verify
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      test_base_url:
+        description: Optional Vercel preview URL for hosted Accept/Vary verification
+        required: false
+        type: string
+
+concurrency:
+  group: verify-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: TypeScript, ESLint, build, and endpoint tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install
+        run: npm ci
+      - name: ESLint
+        run: npm run lint
+      - name: TypeScript
+        run: npm run typecheck
+      - name: Build
+        run: npm run build
+      - name: Endpoint and behavior tests
+        run: npm test
+
+  preview:
+    name: Preview Accept/Vary
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TEST_BASE_URL: ${{ inputs.test_base_url || vars.TEST_BASE_URL || 'https://jeezlabs-1mjl2n61y-jhinreshs-projects.vercel.app' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install
+        run: npm ci
+      - name: Prove homepage and About return Markdown with Vary Accept
+        run: |
+          set -euo pipefail
+          prove() {
+            local path="$1"
+            local expect="$2"
+            local headers body
+            headers="$(mktemp)"
+            body="$(mktemp)"
+            curl -sS -D "$headers" -o "$body" -H 'Accept: text/markdown' "${TEST_BASE_URL}${path}"
+            echo "=== GET ${TEST_BASE_URL}${path} Accept: text/markdown ==="
+            cat "$headers"
+            echo "--- body ---"
+            head -n 5 "$body"
+            grep -qiE '^HTTP/.* 200' "$headers"
+            grep -qiE '^content-type:[[:space:]]*text/markdown' "$headers"
+            grep -qiE '^vary:[[:space:]]*.*accept' "$headers"
+            grep -q "$expect" "$body"
+          }
+          prove '/' '# JeezLabs'
+          prove '/about' '# About JeezLabs'
+      - name: Hosted endpoint suite
+        run: npm test

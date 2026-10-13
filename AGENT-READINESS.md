@@ -39,19 +39,41 @@ npm test
 `npm test` starts and stops its own production server. It checks all page routes,
 Markdown resources, sitemap and robots content/links, JSON-LD, public assets,
 404s, HEAD, Accept edge cases, alternating representations, and RSC navigation.
-To run the same read-only checks against an authorized deployment:
+
+Preview hosting gate (do not use production; production still returns HTML and
+omits `Accept` from Vary). The authorized Vercel Preview for this change:
 
 ```sh
-TEST_BASE_URL=https://jeezlabs.io npm test
-curl -sS -L -i -H 'Accept: text/markdown' https://jeezlabs.io/
-curl -sS -L -i -H 'Accept: text/html' https://jeezlabs.io/
-curl -sS -L -i -H 'Accept: text/markdown' https://jeezlabs.io/some-path-that-does-not-exist
+# Homepage Markdown + Vary: Accept
+curl -sS -D - -o /tmp/home.md -H 'Accept: text/markdown' \
+  https://jeezlabs-1mjl2n61y-jhinreshs-projects.vercel.app/
+# Expect 200, content-type: text/markdown, Vary includes Accept,
+# body starts with "# JeezLabs"
+
+# About Markdown + Vary: Accept
+curl -sS -D - -o /tmp/about.md -H 'Accept: text/markdown' \
+  https://jeezlabs-1mjl2n61y-jhinreshs-projects.vercel.app/about
+# Expect 200, content-type: text/markdown, Vary includes Accept,
+# body starts with "# About JeezLabs"
+
+# Same 29 endpoint/behavior tests against that preview
+TEST_BASE_URL=https://jeezlabs-1mjl2n61y-jhinreshs-projects.vercel.app npm test
 ```
 
-Inspect the final response after redirects: status, content type, Vary, and body.
-After deployment, verify both apex and www and rerun Ora. Search Console sitemap
-submission / indexing inspection requires an owner account; press outreach and
-changes to canonical-domain redirect policy require separate authorization.
+Inspect status, content type, Vary, and body. GitHub Actions `Verify` runs the
+local lint/typecheck/build/test suite on pull requests and repeats the preview
+Accept/Vary proof plus `TEST_BASE_URL` tests. Override the preview URL with
+workflow_dispatch `test_base_url` or repository variable `TEST_BASE_URL`.
+
+This GitHub repository is not linked to the Vercel project (the project still
+points at the unavailable old JhiNResH/jeezlabs repo). Preview URLs come from
+an authorized CLI/preview deploy, not from automatic Git integration. Relinking
+Vercel to jh1nresh/jeezlabs is a separate project-configuration decision.
+
+After production deployment, verify both apex and www and rerun Ora. Search
+Console sitemap submission / indexing inspection requires an owner account;
+press outreach and changes to canonical-domain redirect policy require separate
+authorization.
 
 ## Protocol references
 
