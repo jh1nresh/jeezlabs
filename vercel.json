@@ -1,3 +1,17 @@
 {
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "continue": true,
+      "transforms": [
+        {
+          "type": "response.headers",
+          "op": "append",
+          "target": { "key": "Vary" },
+          "args": "Accept"
+        }
+      ]
+    }
+  ]
 }

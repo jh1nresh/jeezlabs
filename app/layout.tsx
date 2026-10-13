@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Instrument_Serif, Newsreader } from "next/font/google";
 import "./globals.css";
+import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "../lib/site";
 
 const mono = JetBrains_Mono({
   subsets: ["latin"],
@@ -23,8 +24,9 @@ const news = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: "jeezlabs — product index",
-  description: "A two-person product lab building and shipping small internet products.",
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

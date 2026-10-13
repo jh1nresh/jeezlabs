@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "about - jeezlabs",
+  title: "About JeezLabs — product lab",
+  alternates: { canonical: "/about", types: { "text/markdown": "/about.md" } },
   description: "About the JeezLabs two-person product lab.",
 };
 
