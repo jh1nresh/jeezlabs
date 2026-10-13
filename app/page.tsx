@@ -1,6 +1,10 @@
+import type { Metadata } from "next";
+import { organization } from "../lib/site";
 import Link from "next/link";
 import HoverSound from "./HoverSound";
 import { PRODUCTS, STATUS_LABEL } from "./products";
+
+export const metadata: Metadata = { alternates: { canonical: "/", types: { "text/markdown": "/index.md" } } };
 
 function builderLabel(builtBy?: string) {
   if (builtBy === "jhinresh") return "built by jhinresh";
@@ -24,6 +28,7 @@ export default function Home() {
 
   return (
     <main className="archive-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organization).replace(/</g, "\\u003c") }} />
       <HoverSound />
       <header className="chrome archive-chrome">
         <Link className="mark" href="/" aria-label="JeezLabs home">
@@ -43,7 +48,7 @@ export default function Home() {
       </header>
 
       <section className="archive-shell" aria-labelledby="hero-title">
-        <h1 className="sr-only" id="hero-title">JeezLabs product drop index</h1>
+        <h1 className="sr-only" id="hero-title">JeezLabs product lab — product drop index</h1>
 
         <ol className="ms-drop-list" aria-label="JeezLabs product drops">
           {PRODUCTS.map((product, index) => {
