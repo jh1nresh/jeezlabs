@@ -21,6 +21,26 @@ export interface Product {
 
 export const PRODUCTS: Product[] = [
   {
+    slug: "agent-link",
+    t: "Agent Link",
+    k: "shared agent rooms",
+    y: "2026",
+    s: "paused",
+    art: "art-1",
+    desc: "Free, MIT open-source tool for connecting two people's existing AI agents in a temporary shared room.",
+    builtBy: "ezven",
+    repo: "https://github.com/Ferxxo-pa/agent-link",
+    preview: {
+      lead: "Two people bring their own AI agents into a temporary shared room. Each person sees the shared transcript, privately instructs their own agent, and reviews messages before they're shared.",
+      notes: [
+        "Shared transcript with private instructions to your own agent",
+        "Review messages before they're shared",
+        "Archived early prototype: local trial only, no verified integrations with specific agent products",
+        "Built by ezven",
+      ],
+    },
+  },
+  {
     slug: "dip",
     t: "DIP",
     k: "group coordination",
