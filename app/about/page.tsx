@@ -1,99 +1,25 @@
-import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { InfoLayout } from '../InfoPage';
+import { aboutIntro, aboutDirectory, aboutExplore, aboutMakers, builders } from '../../lib/about';
+import { SITE_X } from '../../lib/site';
+import styles from '../info.module.css';
 
 export const metadata: Metadata = {
-  title: "About JeezLabs — product lab",
-  alternates: { canonical: "/about", types: { "text/markdown": "/about.md" } },
-  description: "About the JeezLabs two-person product lab.",
+  title: 'About JeezLabs — product lab',
+  description: 'Meet jhinresh and ezven, the builders behind JeezLabs.',
+  alternates: { canonical: '/about', types: { 'text/markdown': '/about.md' } },
+  openGraph: { type: 'website', title: 'About JeezLabs — product lab', url: '/about', images: ['/opengraph-image'] },
 };
-
 export default function AboutPage() {
-  return (
-    <main className="archive-page">
-      <header className="chrome archive-chrome">
-        <Link className="mark" href="/" aria-label="JeezLabs home">
-          jeezlabs
-        </Link>
-        <nav className="nav" aria-label="Primary navigation">
-          <Link href="/">home</Link>
-          <a href="https://github.com/JhiNResH/jeezlabs" target="_blank" rel="noopener noreferrer">
-            gh↗
-          </a>
-          <a href="https://x.com/0xmaiat" target="_blank" rel="noopener noreferrer">
-            x↗
-          </a>
-        </nav>
-      </header>
-
-      <section className="archive-shell about-shell" aria-labelledby="about-title">
-        <section className="archive-about standalone-about">
-          <div className="archive-about-label">about</div>
-          <div className="archive-about-copy">
-            <h1 id="about-title">
-              TWO FRIENDS.
-              <br />
-              ONE LAB.
-              <br />
-              MANY SMALL PRODUCTS.
-            </h1>
-            <p>
-              JEEZLABS IS A TWO-PERSON PRODUCT LAB FOR INTERNET SOFTWARE,
-              PROTOCOL EXPERIMENTS, IOS APPS, AGENT MARKETPLACES, RENTAL
-              TOOLS, VERIFIED REVIEWS, AND SMALL USEFUL THINGS WE WANT TO SEE
-              EXIST.
-            </p>
-            <p>
-              THIS PAGE IS THE LIVING INDEX. NEW PRODUCTS GO AT THE TOP. ROUGH
-              PRODUCTS STAY VISIBLE. IF A PROJECT WINS, PAUSES, SHIPS, OR
-              TURNS INTO SOMETHING ELSE, IT GETS MARKED HERE.
-            </p>
-            <p>
-              THE JEEZ MARK SHOWS OWNERSHIP: JE LIGHTS UP FOR JHINRESH, EZ
-              LIGHTS UP FOR EZVEN, AND ALL FOUR LETTERS LIGHT UP WHEN IT IS
-              SHARED.
-            </p>
-            <div className="archive-pfps" aria-label="JeezLabs builders">
-              <div>
-                <Image
-                  src="/avatars/jhinresh.jpg"
-                  alt="Jhinresh profile picture"
-                  width={112}
-                  height={112}
-                  priority
-                />
-                <span>JHINRESH</span>
-                <small>BUILDER / PRODUCT</small>
-              </div>
-              <div>
-                <Image
-                  src="/avatars/ezven.jpg"
-                  alt="Ezven profile picture"
-                  width={112}
-                  height={112}
-                  priority
-                />
-                <span>EZVEN</span>
-                <small>BUILDER / PRODUCT</small>
-              </div>
-            </div>
-            <div className="archive-about-links">
-              <a href="https://github.com/JhiNResH" target="_blank" rel="noopener noreferrer">
-                JHINRESH GH↗
-              </a>
-              <a href="https://x.com/JhiNResH" target="_blank" rel="noopener noreferrer">
-                JHINRESH X↗
-              </a>
-              <a href="https://github.com/Ferxxo-pa" target="_blank" rel="noopener noreferrer">
-                EZVEN GH↗
-              </a>
-              <a href="https://x.com/ezveng" target="_blank" rel="noopener noreferrer">
-                EZVEN X↗
-              </a>
-            </div>
-          </div>
-        </section>
-      </section>
-    </main>
-  );
+  return <InfoLayout title="About JeezLabs">
+    <section><h2>Two friends. One lab.</h2><p>{aboutIntro}</p></section>
+    <section aria-labelledby="builders-title"><h2 id="builders-title">The builders</h2><div className={styles.builders}>{builders.map(builder=><article className={styles.builder} key={builder.name}>
+      <Image src={builder.image} alt={`${builder.name} profile picture`} width={96} height={96} />
+      <div><h3>{builder.name}</h3><p>Builder / product</p><nav aria-label={`${builder.name} profiles`}><a href={builder.github}>GitHub ↗</a><a href={builder.x}>X ↗</a></nav></div>
+    </article>)}</div></section>
+    <section><h2>What you will find here</h2><p>{aboutDirectory}</p><p>{aboutMakers}</p></section>
+    <section><h2>Another way to explore</h2><p>{aboutExplore}</p><ul><li><Link href="/">Browse the product index</Link></li><li><a href="/explore.html">Explore the island</a></li><li><a href={SITE_X}>JeezLabs on X ↗</a></li></ul></section>
+  </InfoLayout>;
 }

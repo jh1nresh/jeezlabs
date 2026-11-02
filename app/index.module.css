@@ -260,3 +260,5 @@
 :global(body):has(.root)::before{display:none}
 .root{box-sizing:border-box;min-height:100vh;font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;line-height:normal;-webkit-font-smoothing:auto}
 .root :global(.project-name h2){font-family:inherit}
+
+.root :global(footer .footer-links){flex-wrap:wrap}

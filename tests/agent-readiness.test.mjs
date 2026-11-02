@@ -4,6 +4,9 @@ import { spawn } from 'node:child_process';
 import { createServer } from 'node:net';
 import { readdirSync } from 'node:fs';
 import { PRODUCTS } from '../app/products.ts';
+import { SITE_URL, SITE_X } from '../lib/site.ts';
+import { aboutIntro, aboutDirectory, aboutExplore, aboutMakers, builders } from '../lib/about.ts';
+import { infoPages, infoMarkdown, INFO_UPDATED } from '../lib/info-pages.ts';
 
 let base = process.env.TEST_BASE_URL;
 let server;
@@ -82,7 +85,9 @@ test('home HTML exposes brand metadata and parseable Organization JSON-LD withou
   assert.equal(json?.['@type'], 'Organization');
   assert.equal(json?.name, 'JeezLabs');
   assert.equal(json?.url, 'https://www.jeezlabs.io/');
-  assert.ok(json.description.length > 20); assert.deepEqual(json.sameAs, ['https://github.com/jh1nresh/jeezlabs']);
+  assert.deepEqual(json.contactPoint, { '@type': 'ContactPoint', contactType: 'General inquiries', url: 'https://www.jeezlabs.io/contact' });
+  assert.ok(!('email' in json) && !('address' in json), 'Unprovided business details must stay absent');
+  assert.ok(json.description.length > 20); assert.deepEqual(json.sameAs, ['https://github.com/jh1nresh/jeezlabs', SITE_X]);
   for (const p of PRODUCTS) for (const url of [p.href, p.repo].filter(Boolean)) assert.ok(body.includes(`href="${url}"`));
 });
 test('About keeps HTML and gains Markdown with its own canonical', async () => {
@@ -90,7 +95,7 @@ test('About keeps HTML and gains Markdown with its own canonical', async () => {
   assert.equal(md.response.status, 200); vary(md.response); assert.match(md.body, /^# About JeezLabs/);
   const html = await get('/about', 'text/html');
   assert.equal(html.response.status, 200); if (process.env.TEST_BASE_URL) vary(html.response);
-  assert.match(html.body, /TWO FRIENDS/); assert.match(html.body, /rel="canonical" href="https:\/\/www.jeezlabs.io\/about"/);
+  assert.match(html.body, /Two friends/); assert.match(html.body, /rel="canonical" href="https:\/\/www.jeezlabs.io\/about"/);
 });
 for (const path of ['/__ora-404-probe-test', '/missing/deep/path', '/missing-file.md', '/missing-image.png']) {
   test(`unknown path ${path} retains 404 and negotiates Markdown`, async () => {
@@ -135,7 +140,12 @@ test('robots and sitemap use canonical URLs and valid document structure', async
   assert.match(sitemap.response.headers.get('content-type'), /xml/);
   assert.match(sitemap.body, /<urlset xmlns="http:\/\/www.sitemaps.org\/schemas\/sitemap\/0.9">/);
   const urls = [...sitemap.body.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
-  assert.deepEqual(urls, ['https://www.jeezlabs.io/', 'https://www.jeezlabs.io/about', 'https://www.jeezlabs.io/explore.html']);
+  assert.deepEqual(urls, ['https://www.jeezlabs.io/', 'https://www.jeezlabs.io/about', 'https://www.jeezlabs.io/explore.html', 'https://www.jeezlabs.io/contact', 'https://www.jeezlabs.io/privacy']);
+  const dates = [...sitemap.body.matchAll(/<lastmod>(.*?)<\/lastmod>/g)].map(m => m[1]);
+  assert.equal(dates.length, urls.length);
+  for (const date of dates) assert.ok(Number.isFinite(Date.parse(date)));
+  assert.equal(dates[1], INFO_UPDATED);
+  assert.equal(dates[3], INFO_UPDATED);
   for (const url of urls) assert.equal((await get(new URL(url).pathname, 'text/html')).response.status, 200);
 });
 test('all public assets and favicon retain binary/static responses even with Markdown Accept', async () => {
@@ -192,4 +202,49 @@ test('Explore negotiates Markdown, supports HEAD and exposes a direct representa
   for (const p of PRODUCTS) assert.ok(md.body.includes(`## ${p.t}`));
   const head = await get('/explore.html', 'text/markdown', 'HEAD');
   assert.equal(head.response.status, 200); assert.equal(head.body, '');
+});
+
+for (const key of ['contact', 'privacy']) {
+  test(`${key} is a substantive public page with matching Markdown and discovery links`, async () => {
+    const html = await get(`/${key}`, 'text/html');
+    assert.equal(html.response.status, 200);
+    assert.match(html.body, new RegExp(`rel="canonical" href="https://www.jeezlabs.io/${key}"`));
+    assert.match(html.body, new RegExp(`<h1>${infoPages[key].title}</h1>`));
+    const main = html.body.match(/<main[^>]*>(.*?)<\/main>/s)?.[1];
+    assert.ok(main.replace(/<[^>]+>/g, '').length >= 500);
+    for (const section of infoPages[key].sections) for (const text of section.paragraphs) assert.ok(main.includes(text));
+    const md = await get(`/${key}`, 'text/markdown');
+    assert.equal(md.response.status, 200); vary(md.response);
+    assert.ok(md.response.headers.get('content-type').startsWith('text/markdown'));
+    assert.equal(md.body, infoMarkdown(key, SITE_URL));
+    assert.equal(md.body, (await get(`/${key}.md`, '*/*')).body);
+    const head = await get(`/${key}`, 'text/markdown', 'HEAD');
+    assert.equal(head.response.status, 200); assert.equal(head.body, '');
+    const home = await get('/', 'text/html');
+    assert.ok(home.body.includes(`href="/${key}"`));
+    const guidance = await get('/llms.txt', '*/*');
+    assert.ok(guidance.body.includes(`/${key}.md`));
+  });
+}
+test('homepage includes the four Open Graph properties and a reachable PNG', async () => {
+  const { body } = await get('/', 'text/html');
+  for (const property of ['title', 'type', 'image', 'url']) assert.match(body, new RegExp(`property="og:${property}" content="[^" ]+`));
+  assert.match(body, /property="og:type" content="website"/);
+  const image = body.match(/property="og:image" content="([^"]+)"/)?.[1];
+  const imagePath = new URL(image).pathname;
+  const response = await fetch(`${base}${imagePath}`, {headers:{Accept:'text/markdown'}});
+  assert.equal(response.status, 200); assert.match(response.headers.get('content-type'), /^image\/png/);
+  const bytes = Buffer.from(await response.arrayBuffer());
+  assert.equal(bytes.subarray(1,4).toString(), 'PNG');
+  assert.equal(bytes.readUInt32BE(16), 1200); assert.equal(bytes.readUInt32BE(20), 630);
+});
+
+test('About preserves builder identity and shares factual content with Markdown', async () => {
+  const html = await get('/about', 'text/html'); const md = await get('/about.md', '*/*');
+  for (const text of [aboutIntro, aboutDirectory, aboutExplore, aboutMakers]) { assert.ok(html.body.includes(text)); assert.ok(md.body.includes(text)); }
+  assert.ok(aboutIntro.length + aboutDirectory.length + aboutExplore.length + aboutMakers.length >= 500);
+  for (const builder of builders) { assert.ok(html.body.includes(`alt="${builder.name} profile picture"`)); assert.ok(html.body.includes(`href="${builder.github}"`)); assert.ok(html.body.includes(`href="${builder.x}"`)); }
+  for (const path of ['/', '/about', '/contact', '/privacy', '/explore.html']) {
+    const {body} = await get(path, 'text/html'); assert.ok(body.includes(`href="${SITE_X}"`),path); assert.ok(!body.includes('x.com/0xmaiat'),path);
+  }
 });
