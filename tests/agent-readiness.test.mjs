@@ -3,6 +3,7 @@ import { after, before, test } from 'node:test';
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:net';
 import { readdirSync } from 'node:fs';
+import { PRIMARY_NAV } from '../lib/navigation.ts';
 import { updates, updatesMarkdown, UPDATES_UPDATED } from '../lib/updates.ts';
 import { PRODUCTS } from '../app/products.ts';
 import { SITE_URL, SITE_X } from '../lib/site.ts';
@@ -283,4 +284,21 @@ test('Updates supports negotiated/direct Markdown, HEAD and invalid Accept', asy
   const head=await get('/updates','text/markdown','HEAD');
   assert.equal(head.response.status,200); assert.equal(head.body,''); vary(head.response);
   const denied=await get('/updates','application/json');assert.equal(denied.response.status,406);
+});
+
+test('all pages keep the same two primary links and expose external links in the footer', async () => {
+  for (const path of ['/', '/about', '/updates', '/contact', '/privacy', '/explore.html']) {
+    const {body}=await get(path,'text/html');
+    const header=body.match(/<header class="site-header">(.*?)<\/header>/s)?.[1];
+    assert.ok(header,path);
+    const nav=header.match(/<nav[^>]*>(.*?)<\/nav>/s)?.[1];
+    const items=[...nav.matchAll(/<a[^>]*href="([^"]+)"[^>]*>(.*?)<\/a>/g)].map(m=>({href:m[1],label:m[2]}));
+    assert.deepEqual(items,PRIMARY_NAV,path);
+    assert.ok(header.includes('aria-label="JeezLabs home"'));
+    const current=[...nav.matchAll(/<a[^>]*aria-current="page"[^>]*>/g)];
+    assert.equal(current.length,['/about','/updates'].includes(path)?1:0,path);
+    const footer=body.match(/<footer[^>]*>(.*?)<\/footer>/s)?.[1];
+    assert.ok(footer.includes(`href="${SITE_X}"`),path);
+    assert.ok(footer.includes('href="https://github.com/jh1nresh/jeezlabs"'),path);
+  }
 });

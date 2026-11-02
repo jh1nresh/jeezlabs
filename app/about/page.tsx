@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: { type: 'website', title: 'About JeezLabs — product lab', url: '/about', images: ['/opengraph-image'] },
 };
 export default function AboutPage() {
-  return <InfoLayout title="About JeezLabs">
+  return <InfoLayout title="About JeezLabs" currentPath="/about">
     <section><h2>Two friends. One lab.</h2><p>{aboutIntro}</p></section>
     <section aria-labelledby="builders-title"><h2 id="builders-title">The builders</h2><div className={styles.builders}>{builders.map(builder=><article className={styles.builder} key={builder.name}>
       <Image src={builder.image} alt={`${builder.name} profile picture`} width={96} height={96} />

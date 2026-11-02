@@ -17,3 +17,5 @@
 .builder p{font-size:11px;margin:6px 0 10px}
 .builder nav{font-size:11px;gap:18px}
 @media(max-width:650px){.builders{grid-template-columns:1fr;gap:28px}.builder img{width:72px;height:72px}}
+
+.footerNav{flex-wrap:wrap}

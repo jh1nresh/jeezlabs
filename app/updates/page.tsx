@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 const dateFormat = new Intl.DateTimeFormat('en', { day:'2-digit', month:'short', year:'numeric', timeZone:'UTC' });
 export default function UpdatesPage() {
-  return <InfoLayout title="Updates" updated={UPDATES_UPDATED}>
+  return <InfoLayout title="Updates" updated={UPDATES_UPDATED} currentPath="/updates">
     <ol className={styles.feed} aria-label="Studio updates">
       {[...updates].sort((a,b)=>b.published.localeCompare(a.published)).map(update=><li key={update.slug} id={update.slug}>
         <article aria-labelledby={`${update.slug}-title`}>

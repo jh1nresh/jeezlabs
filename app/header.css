@@ -1,0 +1,9 @@
+html{scrollbar-gutter:stable}
+.site-header.site-header{width:min(1500px,calc(100% - 72px));height:64px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid #2c3135;font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace}
+.site-brand.site-brand{display:inline-flex;align-items:center;gap:10px;color:#e7e9e6;font-size:18px;font-weight:800;letter-spacing:-.8px;text-decoration:none;white-space:nowrap}
+.site-brand.site-brand span{display:block;width:9px;height:9px;background:#e2f75a}
+.site-nav.site-nav{display:flex;align-items:center;gap:24px;margin:0;padding:0;font-size:11px;letter-spacing:0;line-height:1.5}
+.site-nav.site-nav a{display:block;color:#969d9f;font:inherit;text-decoration:none;white-space:nowrap}
+.site-nav.site-nav a:hover,.site-nav.site-nav a[aria-current=page]{color:#e2f75a}
+.site-header a:focus-visible{outline:2px solid #e2f75a;outline-offset:5px}
+@media(max-width:700px){.site-header.site-header{width:calc(100% - 36px);gap:16px}.site-nav.site-nav{gap:20px;font-size:10px}}

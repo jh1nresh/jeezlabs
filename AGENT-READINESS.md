@@ -126,3 +126,19 @@ native post and video poster appear, iframe height follows content rather than
 navigation, with per-mount cancellation guarding late SDK completions. Actual
 video playback is not required to establish these layout checks. No merge or
 deployment is included.
+
+## Consistent navigation (2026-11-02)
+
+All six public HTML routes use the same ABOUT / UPDATES links and home logo.
+React pages share SiteHeader; the portable Explore builder reads the same link
+data and header CSS. GH and studio X are in the footer. Active state changes
+color only, and a stable scrollbar gutter prevents width changes between pages.
+
+Lint, Webpack production build, typecheck and 42 tests pass on the identical
+source exported outside iCloud; the original dependency files had been offloaded
+and could not start Next.js. Generated Explore output was copied back and checked
+for source parity. Browser navigation and geometry checks at actual 1600px and
+320px viewport widths confirm identical header/link positions across Index,
+About, Updates and Explore, with no horizontal overflow. About / Updates / home
+links were exercised. No dependencies or media behavior changed; existing audit
+findings remain outside this navigation fix. No merge or deployment is included.
