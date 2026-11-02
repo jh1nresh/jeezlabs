@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Adapted classic-script drawing library; syntax checked by build:explore.
+    "studio/explore/core.js",
   ]),
 ]);
 

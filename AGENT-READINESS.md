@@ -22,7 +22,7 @@ HTML Vary header, including ordinary Vercel header configuration, so `vercel.jso
 uses a response-header transform to append Accept while preserving Next.js Vary
 fields. Local Next.js cannot exercise that hosting
 configuration: tests require HTML Vary when TEST_BASE_URL is set, and it must be
-verified on the Vercel deployment before release. Styles, layout, and interactions are unchanged.
+verified on the Vercel deployment before release. The product index now has filters and an optional island view. `/explore.html` negotiates HTML/Markdown, `/explore.md` is its direct Markdown representation, and the sitemap includes the island. Other public files retain static handling.
 
 ## Verification
 

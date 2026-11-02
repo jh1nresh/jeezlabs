@@ -135,12 +135,13 @@ test('robots and sitemap use canonical URLs and valid document structure', async
   assert.match(sitemap.response.headers.get('content-type'), /xml/);
   assert.match(sitemap.body, /<urlset xmlns="http:\/\/www.sitemaps.org\/schemas\/sitemap\/0.9">/);
   const urls = [...sitemap.body.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
-  assert.deepEqual(urls, ['https://www.jeezlabs.io/', 'https://www.jeezlabs.io/about']);
+  assert.deepEqual(urls, ['https://www.jeezlabs.io/', 'https://www.jeezlabs.io/about', 'https://www.jeezlabs.io/explore.html']);
   for (const url of urls) assert.equal((await get(new URL(url).pathname, 'text/html')).response.status, 200);
 });
 test('all public assets and favicon retain binary/static responses even with Markdown Accept', async () => {
   const files = readdirSync('public', { recursive: true, withFileTypes: true }).filter(e => e.isFile()).map(e => '/' + `${e.parentPath}/${e.name}`.replace(/^public\//, ''));
   for (const path of [...files, '/favicon.ico']) {
+    if (path === '/explore.html') continue; // Page negotiates Markdown; other public files remain assets.
     const { response } = await get(path, 'text/markdown'); assert.equal(response.status, 200, path);
     assert.ok(!response.headers.get('content-type')?.startsWith('text/markdown'), path);
   }
@@ -154,4 +155,41 @@ test('alternating Markdown and HTML cannot mix representations', async () => {
   for (const accept of ['text/markdown', 'text/html', 'text/markdown', 'text/html']) {
     const { response } = await get('/', accept); assert.ok(response.headers.get('content-type').startsWith(accept)); if (accept === 'text/markdown' || process.env.TEST_BASE_URL) vary(response);
   }
+});
+
+test('approved index has eleven products and the requested status changes', async () => {
+  assert.equal(PRODUCTS.length, 11);
+  assert.ok(!PRODUCTS.some(p => ['pincher', 'jiagon', 'cloak'].includes(p.slug)));
+  assert.equal(PRODUCTS.find(p => p.slug === 'maiat-protocol')?.s, 'shipped');
+  assert.equal(PRODUCTS.find(p => p.slug === 'wanderly')?.t, 'savvy');
+  assert.equal(PRODUCTS.filter(p => p.s === 'live').length, 3);
+  assert.equal(PRODUCTS.filter(p => p.s === 'shipped').length, 4);
+  assert.equal(PRODUCTS.filter(p => p.s === 'building').length, 2);
+  assert.equal(PRODUCTS.filter(p => p.s === 'preview').length, 2);
+  const { body } = await get('/', 'text/html');
+  assert.equal([...body.matchAll(/<li class="product"/g)].length, 11);
+  assert.match(body, /aria-label="Filter projects by status"/);
+  assert.match(body, /href="\/explore.html"/);
+});
+
+test('Explore is portable HTML and uses the same products as the index and Markdown', async () => {
+  const { response, body } = await get('/explore.html', 'text/html');
+  assert.equal(response.status, 200);
+  assert.ok(response.headers.get('content-type').startsWith('text/html'));
+  const rows = JSON.parse(body.match(/const projects=(\[.*?\]);/s)?.[1] ?? 'null');
+  assert.deepEqual(rows.map(p => [p[0], p[2].toLowerCase(), p[4], p[5]]), PRODUCTS.map(p => [p.t, p.s, p.href ?? null, p.repo ?? null]));
+  assert.match(body, /MIT License/);
+  assert.doesNotMatch(body, /<script\s+src=/);
+  assert.match(body, /function isEnter\(/);
+  assert.match(body, /href="\.\/">01 \/ INDEX/);
+});
+
+test('Explore negotiates Markdown, supports HEAD and exposes a direct representation', async () => {
+  const md = await get('/explore.html', 'text/markdown');
+  assert.equal(md.response.status, 200); vary(md.response);
+  assert.match(md.body, /^# Explore JeezLabs/);
+  assert.equal(md.body, (await get('/explore.md', '*/*')).body);
+  for (const p of PRODUCTS) assert.ok(md.body.includes(`## ${p.t}`));
+  const head = await get('/explore.html', 'text/markdown', 'HEAD');
+  assert.equal(head.response.status, 200); assert.equal(head.body, '');
 });
