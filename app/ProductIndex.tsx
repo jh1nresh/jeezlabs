@@ -45,7 +45,7 @@ export default function ProductIndex() {
         </li>)}</ol>
         <div className="summary"><div className="totals" role="group" aria-label="Full collection statistics">{FILTERS.filter(s => s !== "all").map(s => <span className="total" key={s}>{s.toUpperCase()} <strong>{pad(counts[s])}</strong></span>)}<span className="total">WINNERS <strong>{pad(PRODUCTS.filter(p => p.hackathon).length)}</strong></span></div><div className="maker-legend" role="group" aria-label="Maker initials"><span><b className="maker">JH</b> JHINRESH</span><span><b className="maker ez">EZ</b> EZVEN</span><span><b className="maker">JH</b><b className="maker ez">EZ</b> SHARED</span><span><b className="maker studio">JL</b> JEEZLABS</span></div></div>
       </main>
-      <footer><p><span className="closing">JeezLabs</span><br />Independent product studio</p><div className="footer-links"><a href="/about">ABOUT THE STUDIO ↗</a><Link href="/contact">CONTACT</Link><Link href="/privacy">PRIVACY</Link><OutLink href="https://github.com/jh1nresh/jeezlabs">GH ↗</OutLink><OutLink href={SITE_X}>X ↗</OutLink><OutLink href="https://www.google.com/preferences/source?q=www.jeezlabs.io" label="Follow on Google: add JeezLabs as a preferred source">FOLLOW ON GOOGLE ↗</OutLink><a href="#products">BACK TO TOP ↑</a></div></footer>
+      <footer><p><span className="closing">JeezLabs</span><br />Independent product studio</p><div className="footer-links"><a href="/about">ABOUT THE STUDIO ↗</a><Link href="/contact">CONTACT</Link><Link href="/privacy">PRIVACY</Link><OutLink href="https://github.com/jh1nresh/jeezlabs">GH ↗</OutLink><OutLink href={SITE_X}>X ↗</OutLink><a href="#products">BACK TO TOP ↑</a></div></footer>
     </div>
   </div>;
 }
