@@ -29,7 +29,10 @@ npm run build:explore
 
 The island is portable HTML with its drawing library and license inlined. It
 uses a scoped adaptation of Colorfigures by April Zhu; see
-`studio/explore/LICENSE`. Camera state and rendering are described in
+`studio/explore/LICENSE`. Project-specific architecture also uses the MIT Anatomy
+convex solids subset (`studio/explore/LICENSE-Anatomy`). Its rounded bevels share
+the Colorfigures orbit camera. See `studio/explore/ARCHITECTURE.md` for the project
+forms and parts. Camera state and rendering are described in
 `studio/VERIFICATION.md`. Keep the positional scene metadata in `island.js`
 aligned with `PRODUCTS` when changing project order.
 

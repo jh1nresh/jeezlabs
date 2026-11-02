@@ -39,3 +39,24 @@ and hosting-specific headers require separate checks before release.
 - Browser evidence was taken from the repo server, not the original prototype.
   Physical touch devices and hosting-specific Vercel header behavior remain
   outside local evidence. No dependency upgrades or release actions included.
+
+## Project architecture receipt (2026-11-02)
+
+- All eleven plots now use project-specific forms and attached details. The
+  homepage and shared product data are unchanged. See `explore/ARCHITECTURE.md`.
+- Colorfigures remains the ink/colour renderer; the vendored Anatomy convex
+  solids subset supplies bevelled slabs. Both MIT notices are inlined.
+- Added portable-artifact tests: camera registration across continuous yaw,
+  four quarter-turn views and 20–78 degree elevation; finite/distinct geometry
+  for eleven projects; self-contained scripts and license retention.
+- Lint, production build and typecheck passed. Full suite: 35 passed.
+- Actual browser: island overview, project entry, 90-degree orbit and reset;
+  PINGME tabletop and EZNest layout close-ups; 390px quick-select/entry, document
+  width 371px, all eleven buildings; console warnings/errors empty.
+- Near views suppress other project labels so they cannot cover the subject.
+  Roof glazing follows its host slope and culling; library pillars meet the roof.
+- This is the existing SVG orbit adapter, not Anatomy's optional live-3D engine.
+  Its mechanical audit/line-check tools were not run; physical touch devices
+  and hosting-specific headers remain outside this local evidence.
+- Security: no new inputs, network calls, execution or production endpoints.
+  Product text remains escaped and the builder checks inline delimiters.

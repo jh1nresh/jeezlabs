@@ -21,13 +21,35 @@
 <div id="index-view" hidden aria-label="Project index"></div><div class="mobile-select"><label for="project-select">QUICK FIND</label><select id="project-select" aria-label="Choose a project"></select></div><div class="world-caption"><span><b>JeezLabs</b><br>Select a building to view the project</span><span>Explore the island, or return to the Index.<br>Drag to orbit & tilt. Scroll / pinch to zoom.<br>Shift-drag or two fingers to pan.</span></div></section>
 <div class="project-prompt"><span>Studio map</span><h2>Select a project</h2><p id="entry-prompt">Select a building to view the project</p></div><aside class="project-detail" id="project-detail" aria-labelledby="detail-name"><div class="detail-top"><span>PROJECT / SELECTED</span><span id="detail-number">08 / 11</span></div><span class="detail-status" id="detail-status">Preview</span><h2 class="detail-name" id="detail-name" tabindex="-1">OUTPUT</h2><p class="detail-type" id="detail-type"></p><div class="portrait-wrap"><svg class="portrait" id="portrait" viewBox="0 0 220 210" role="img" aria-label="Selected project building"><g id="portrait-art"></g></svg><p class="portrait-caption" id="detail-building"></p></div><p class="detail-description" id="detail-description"></p><div class="detail-tags" id="detail-tags"></div><div class="detail-links" id="detail-links"></div><div class="detail-foot"><span>BUILT BY</span><span id="detail-maker"></span></div><p class="model-note">The building is a project entrance, not a product demo.<br>建筑是作品的空间入口；产品功能以实际项目为准。</p><button type="button" class="back-island" id="back-island">← Back to full island</button></aside>
 <p class="sr-only" id="selection-status" role="status" aria-live="polite"></p><noscript><p>JavaScript is needed for this interactive island. <a href="https://www.jeezlabs.io/">Visit the original project index.</a></p></noscript></main>
-<footer class="footer"><span>JeezLabs · Independent product studio<br>Drawn with <a href="https://april-zhu.com/colorfigures" target="_blank" rel="noopener noreferrer">Colorfigures</a>.</span><span>JeezLabs / Studio map<br><a href="./">Back to product index</a></span></footer>
+<footer class="footer"><span>JeezLabs · Independent product studio<br>Drawn with <a href="https://april-zhu.com/colorfigures" target="_blank" rel="noopener noreferrer">Colorfigures</a> + <a href="https://github.com/wheresryan22/anatomy" target="_blank" rel="noopener noreferrer">Anatomy</a>.</span><span>JeezLabs / Studio map<br><a href="./">Back to product index</a></span></footer>
 </div><!--
 MIT License
 
 Copyright (c) 2026 April Zhu (Colorfigures: colour, hand-drawn style, 3D props, template, examples)
 Copyright (c) 2026 April Zhu (iso-glow, on which Colorfigures is based)
 Copyright (c) 2026 Tolga Cohce (iso-figure, on which iso-glow is based)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+MIT License
+
+Copyright (c) 2026 Ryan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -439,7 +461,392 @@ function mountFigure(cfg){
   if (art.querySelector('.tag')) lblctl.hidden = false;
   return ui;
 }
-</script><script>const projects=[["DIP","Group coordination","Building","ezven","https://dip-neon-three.vercel.app/",null,false,"#ff8db5"],["GIMI","Agentic rentals","Shipped","jhinresh + ezven","https://gimi-pr18.vercel.app/","https://github.com/clawdez/Gimi",true,"#ffc93c"],["PINGME","Ping pong finder","Live","ezven","https://usepingme.com/","https://github.com/Ferxxo-pa/pingme",false,"#8dd3f6"],["DISTOKEN","NFT gallery viewer","Shipped","ezven","https://distoken.art/","https://github.com/Ferxxo-pa/DisToken",true,"#d3beff"],["TRANSPARENT","Multiplayer party game","Shipped","ezven","https://transparent-five.vercel.app/","https://github.com/Ferxxo-pa/transparent",false,"#ffb7a6"],["REDLINE AI","Law review scanner","Live","ezven","https://redlineai.xyz/",null,false,"#ffb7a6"],["AGENTSHACK","AI agent marketplace","Live","jhinresh + ezven","https://agentshack.io/","https://github.com/JhiNResH/maiat-dojo",true,"#a9e6c6"],["OUTPUT","Print-production network · sandbox","Preview","JeezLabs","https://output.jeezlabs.io/",null,false,"#ffc93c"],["MAIAT PROTOCOL","Agent trust layer","Shipped","jhinresh + ezven","https://app.maiat.io/","https://github.com/JhiNResH/maiat-protocol",true,"#d3beff"],["savvy","iOS travel app","Building","jhinresh",null,"https://github.com/JhiNResH/wanderly",false,"#8dd3f6"],["EZNest","Nesting for print shops · preview","Preview","JeezLabs","https://eznest.jeezlabs.io/",null,false,"#ff8db5"]];</script><script>// Colorfigures primitives, scoped to two SVG surfaces. No mountFigure or animation loop.
+</script><script>const projects=[["DIP","Group coordination","Building","ezven","https://dip-neon-three.vercel.app/",null,false,"#ff8db5"],["GIMI","Agentic rentals","Shipped","jhinresh + ezven","https://gimi-pr18.vercel.app/","https://github.com/clawdez/Gimi",true,"#ffc93c"],["PINGME","Ping pong finder","Live","ezven","https://usepingme.com/","https://github.com/Ferxxo-pa/pingme",false,"#8dd3f6"],["DISTOKEN","NFT gallery viewer","Shipped","ezven","https://distoken.art/","https://github.com/Ferxxo-pa/DisToken",true,"#d3beff"],["TRANSPARENT","Multiplayer party game","Shipped","ezven","https://transparent-five.vercel.app/","https://github.com/Ferxxo-pa/transparent",false,"#ffb7a6"],["REDLINE AI","Law review scanner","Live","ezven","https://redlineai.xyz/",null,false,"#ffb7a6"],["AGENTSHACK","AI agent marketplace","Live","jhinresh + ezven","https://agentshack.io/","https://github.com/JhiNResH/maiat-dojo",true,"#a9e6c6"],["OUTPUT","Print-production network · sandbox","Preview","JeezLabs","https://output.jeezlabs.io/",null,false,"#ffc93c"],["MAIAT PROTOCOL","Agent trust layer","Shipped","jhinresh + ezven","https://app.maiat.io/","https://github.com/JhiNResH/maiat-protocol",true,"#d3beff"],["savvy","iOS travel app","Building","jhinresh",null,"https://github.com/JhiNResH/wanderly",false,"#8dd3f6"],["EZNest","Nesting for print shops · preview","Preview","JeezLabs","https://eznest.jeezlabs.io/",null,false,"#ff8db5"]];</script><script>const IS_ANATOMY=(()=>{
+// Anatomy convex solids subset, copied without modification from kit/iso-kit.mjs.
+// Copyright (c) 2026 Ryan. MIT; see LICENSE-Anatomy.
+const AZIMUTH = 45;
+const ELEVATION = 30;
+const SHADES = 4;
+const RADIANS = Math.PI / 180;
+const UNIT = Math.sqrt(1.6);
+function cameraOf({ scale, azimuth = AZIMUTH, elevation = ELEVATION }) {
+    const a = azimuth * RADIANS;
+    const e = elevation * RADIANS;
+    return { sinA: Math.sin(a), cosA: Math.cos(a), sinE: Math.sin(e), cosE: Math.cos(e), k: scale * UNIT };
+}
+function iso([x, y, z], projection) {
+    const { origin } = projection;
+    const { sinA, cosA, sinE, cosE, k } = cameraOf(projection);
+    return [origin[0] + (x * sinA - y * cosA) * k, origin[1] + ((x * cosA + y * sinA) * sinE - z * cosE) * k];
+}
+function towardViewer(projection) {
+    const { sinA, cosA } = cameraOf(projection);
+    return [cosA, sinA];
+}
+function depthOf([x, y, z], projection) {
+    const { sinA, cosA, sinE, cosE } = cameraOf(projection);
+    return (x * cosA + y * sinA) * cosE + z * sinE;
+}
+const tenth = (value) => {
+    const text = (Math.round(value * 10) / 10).toFixed(1).replace(/\.0$/, "");
+    return text === "-0" ? "0" : text;
+};
+function pathOf(points, closed = false) {
+    if (!points.length)
+        return "";
+    return points.map(([x, y], at) => `${at ? "L" : "M"}${tenth(x)} ${tenth(y)}`).join("") + (closed ? "Z" : "");
+}
+const joinPaths = (paths) => paths.filter(Boolean).join("");
+function roundedPlan({ x, y, w, d, r }, steps = 8) {
+    const radius = Math.max(0, Math.min(r, w / 2, d / 2));
+    const corners = [
+        [x + w - radius, y + radius, -90],
+        [x + w - radius, y + d - radius, 0],
+        [x + radius, y + d - radius, 90],
+        [x + radius, y + radius, 180],
+    ];
+    const out = [];
+    for (const [cx, cy, start] of corners) {
+        const count = radius > 0 ? steps : 0;
+        for (let step = 0; step <= count; step++) {
+            const angle = (start + (count ? (90 * step) / count : 45)) * RADIANS;
+            out.push([cx + radius * Math.cos(angle), cy + radius * Math.sin(angle)]);
+        }
+    }
+    return out;
+}
+function signedArea(points) {
+    let area = 0;
+    for (let index = 0; index < points.length; index++) {
+        const [ax, ay] = points[index];
+        const [bx, by] = points[(index + 1) % points.length];
+        area += ax * by - bx * ay;
+    }
+    return area / 2;
+}
+const oriented = (points) => (signedArea(points) < 0 ? [...points].reverse() : points);
+function convexHull(points) {
+    const sorted = [...points].sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+    if (sorted.length < 3)
+        return sorted;
+    const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+    const lower = [];
+    for (const point of sorted) {
+        while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], point) <= 0)
+            lower.pop();
+        lower.push(point);
+    }
+    const upper = [];
+    for (let index = sorted.length - 1; index >= 0; index--) {
+        const point = sorted[index];
+        while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], point) <= 0)
+            upper.pop();
+        upper.push(point);
+    }
+    return [...lower.slice(0, -1), ...upper.slice(0, -1)];
+}
+function runsOf(flags, want) {
+    const count = flags.length;
+    const runs = [];
+    const start = flags.findIndex((flag, index) => flag !== flags[(index + count - 1) % count]);
+    if (start < 0)
+        return flags[0] === want ? [Array.from({ length: count + 1 }, (_, index) => index % count)] : [];
+    let run = null;
+    for (let step = 0; step < count; step++) {
+        const index = (start + step) % count;
+        if (flags[index] === want) {
+            if (!run)
+                run = [index];
+            run.push((index + 1) % count);
+        }
+        else if (run) {
+            runs.push(run);
+            run = null;
+        }
+    }
+    if (run)
+        runs.push(run);
+    return runs;
+}
+function extrude(ring, z, height, projection, options = {}) {
+    const convex = options.convex ?? true;
+    const count = ring.length;
+    const counter = signedArea(ring) > 0;
+    const [vx, vy] = towardViewer(projection);
+    const { sinA, cosA } = cameraOf(projection);
+    const normals = ring.map(([ax, ay], index) => {
+        const [bx, by] = ring[(index + 1) % count];
+        const dx = bx - ax;
+        const dy = by - ay;
+        const length = Math.hypot(dx, dy) || 1;
+        return (counter ? [dy / length, -dx / length] : [-dy / length, dx / length]);
+    });
+    const facing = normals.map(([nx, ny]) => nx * vx + ny * vy > 1e-9);
+    const top = ring.map(([x, y]) => iso([x, y, z + height], projection));
+    const bottom = ring.map(([x, y]) => iso([x, y, z], projection));
+    const outline = [];
+    const crease = [];
+    for (const run of runsOf(facing, false))
+        outline.push(pathOf(run.map((index) => top[index])));
+    for (const run of runsOf(facing, true)) {
+        crease.push(pathOf(run.map((index) => top[index])));
+        if (height > 0)
+            outline.push(pathOf(run.map((index) => bottom[index])));
+    }
+    if (height > 0) {
+        for (let index = 0; index < count; index++) {
+            if (facing[(index + count - 1) % count] !== facing[index])
+                outline.push(pathOf([top[index], bottom[index]]));
+        }
+    }
+    let fill;
+    if (convex) {
+        fill = pathOf(convexHull([...top, ...bottom]), true);
+    }
+    else {
+        const parts = [pathOf(oriented(top), true), pathOf(oriented(bottom), true)];
+        for (let index = 0; index < count; index++) {
+            if (!facing[index])
+                continue;
+            const next = (index + 1) % count;
+            parts.push(pathOf(oriented([top[index], top[next], bottom[next], bottom[index]]), true));
+        }
+        fill = parts.join("");
+    }
+    const buckets = Array.from({ length: SHADES }, () => []);
+    if (height > 0) {
+        const [lx, ly] = [-sinA, cosA];
+        for (let index = 0; index < count; index++) {
+            if (!facing[index])
+                continue;
+            const [nx, ny] = normals[index];
+            const lit = (nx * lx + ny * ly + 1) / 2;
+            const shade = Math.min(SHADES - 1, Math.max(0, Math.floor(lit * SHADES)));
+            const next = (index + 1) % count;
+            buckets[shade].push(pathOf(oriented([top[index], top[next], bottom[next], bottom[index]]), true));
+        }
+    }
+    let bevel;
+    if (options.bevel && options.bevel > 0) {
+        const by = options.bevel;
+        const inset = ring.map(([x, y], index) => {
+            const [ax, ay] = normals[(index + count - 1) % count];
+            const [bx, by2] = normals[index];
+            const mx = ax + bx;
+            const my = ay + by2;
+            const length = Math.hypot(mx, my) || 1;
+            return [x - (mx / length) * by, y - (my / length) * by];
+        });
+        const insetTop = inset.map(([x, y]) => iso([x, y, z + height], projection));
+        bevel = runsOf(facing, true)
+            .map((run) => pathOf([top[run[0]], ...run.slice(1, -1).map((index) => insetTop[index]), top[run[run.length - 1]]]))
+            .join("");
+    }
+    return {
+        fill,
+        outline: outline.join(""),
+        crease: crease.join(""),
+        top: pathOf(oriented(top), true),
+        shades: buckets.map((paths) => paths.join("")),
+        bevel,
+    };
+}
+const ringOf = (plan, steps = 8) => roundedPlan(plan, steps);
+function slabOf(plan, z, height, projection, steps = 8, bevel = 0) {
+    return extrude(ringOf(plan, steps), z, height, projection, { convex: true, bevel });
+}
+function circleRing(cx, cy, radius, steps = 40) {
+    return Array.from({ length: steps }, (_, step) => {
+        const angle = (step / steps) * Math.PI * 2;
+        return [cx + radius * Math.cos(angle), cy + radius * Math.sin(angle)];
+    });
+}
+function cylinder(cx, cy, radius, z, height, projection, steps = 32, bevel = 0) {
+    return extrude(circleRing(cx, cy, radius, steps), z, height, projection, { convex: true, bevel });
+}
+
+return {iso,slabOf};})();
+// Original project architecture. Colorfigures ink + Anatomy convex solids.
+// The camera adapter is shared by the map and the selected-building portrait.
+function isAnatomyProjection(){return {origin:P(0,0,0),scale:Math.sqrt(1.5/1.6),azimuth:45+(IS_ORBIT+VIEW*Math.PI/2)*180/Math.PI,elevation:IS_ELEV*180/Math.PI};}
+function isAnatomySlab(x,y,z,w,d,h,r,color){
+ const m=typeof color==='string'?matOf(color):color;
+ const p=IS_ANATOMY.slabOf({x,y,w,d,r},z,h,isAnatomyProjection(),4,Math.min(.65,h/3));
+ return fill(p.fill,m.d)+p.shades.map((path,i)=>fill(path,mix(m.d,m.m,(i+1)/4))).join('')+fill(p.top,m.l)+ink(p.crease,.55)+ink(p.bevel||'',.3)+ink(p.outline,1.05);
+}
+function isBuilding(i,x,y,z){ // eslint-disable-line @typescript-eslint/no-unused-vars -- shared classic-script entrypoint
+ const color=isColors[i],roof=isMat.roof,cream='#dfd8b7',glass='#97b9ba',dark='#344b50',parts=[];
+ const add=(a,b,c,svg)=>{const p={at:[x+a,y+b,z+c],svg};parts.push(p);return p;};
+ const B=(a,b,c,w,d,h,col=color,r=0)=>add(a+w/2,b+d/2,c+h/2,r?isAnatomySlab(x+a,y+b,z+c,w,d,h,r,col):box(x+a,y+b,z+c,x+a+w,y+b+d,z+c+h,typeof col==='string'?matOf(col):col));
+ const panel=(part,axis,q,u,v,w,h,col,sign=1)=>{
+  const n=axis==='x'?[sign,0,0]:[0,sign,0];if(!vis(n))return;
+  const plane=axis==='x'?PX(x+q):PY(y+q),offset=axis==='x'?y:x;
+  part.svg+=shape(on(plane,rectUV(offset+u,z+v,offset+u+w,z+v+h)),col,.6);
+ };
+ const windows=(part,a,b,c,w,d,h)=>{
+  for(const sign of [-1,1]){
+   for(let k=6;k<w-7;k+=14)panel(part,'y',b+(sign>0?d+.12:-.12),a+k,c+7,7,Math.min(12,h-10),glass,sign);
+   panel(part,'x',a+(sign>0?w+.12:-.12),b+d/2-5,c+2,10,Math.min(20,h-4),dark,sign);
+  }
+ };
+ const gable=(a,b,c,w,d,rise)=>add(a+w/2,b+d/2,c+rise/2,isRoof(x+a,y+b,z+c,w,d,rise,roof.l));
+ const topLine=(points,width=.55)=>line(points.map(([a,b,c])=>[x+a,y+b,z+c]),width);
+ // Every plot has a grounded, bevelled base, not a floating object shelf.
+ let base=isAnatomySlab(x-5,y-5,z-3,76,61,3,3,isMat.stone);
+ switch(isInfo[i][4]){
+ case 'hall':{
+  // The shared table remains visible; the narrow canopy shelters its far edge.
+  const paving=B(1,1,0,63,48,1,cream,2);
+  for(let k=13;k<63;k+=13)paving.svg+=topLine([[k,1,1.1],[k,49,1.1]],.35);
+  for(const a of [4,57])for(const b of [4,15])B(a,b,1,3,3,35,roof);
+  B(-1,0,36,68,23,4,color,2);B(0,2,40,66,2,2,cream);
+  B(27,24,1,8,8,13,roof);B(15,21,14,33,22,3,color,4);
+  for(const [a,b] of [[8,26],[52,26],[23,45],[39,45]]){B(a,b,1,3,3,9,roof);B(a-3,b-2,10,10,8,2,cream,1);}
+  break;
+ }
+ case 'house':{
+  const cottage=B(0,1,0,32,44,32);windows(cottage,0,1,0,32,44,32);gable(0,1,32,32,44,16);
+  B(34,4,0,30,39,29,color,1);
+  // Rental cubbies are separate fitted doors, never fabricated inventory counts.
+  const bank=parts.at(-1);for(const sign of [-1,1])for(let row=0;row<2;row++)for(let k=0;k<3;k++){
+   panel(bank,'x',sign>0?64.2:33.8,7+k*11,3+row*12,9,10,cream,sign);
+   panel(bank,'x',sign>0?64.3:33.7,13+k*11,7+row*12,1,2,dark,sign);
+  }
+  B(33,2,29,33,43,3,roof,1);B(38,46,0,12,7,7,cream);B(52,46,0,10,7,11,color);
+  break;
+ }
+ case 'club':{
+  const court=B(0,0,0,64,49,2,'#7c9e94',2);
+  court.svg+=shape(on(PZ(z+2.1),rectUV(x+3,y+3,x+61,y+46)),'#6d9388',.6);
+  for(const a of [14,48])for(const b of [14,33])B(a,b,2,3,3,9,cream);
+  const table=B(10,10,11,46,30,3,'#83abb1',1);
+  table.svg+=shape(on(PZ(z+14.1),rectUV(x+12,y+12,x+54,y+38)),'#7ea5ad',.65)+topLine([[12,25,14.2],[54,25,14.2]],.6);
+  const net=add(33,25,17,shape([[x+33,y+9,z+14],[x+33,y+41,z+14],[x+33,y+41,z+21],[x+33,y+9,z+21]],cream,.75));
+  for(let b=11;b<41;b+=3)net.svg+=topLine([[33,b,14],[33,b,21]],.3);
+  for(const c of [16.5,19])net.svg+=topLine([[33,9,c],[33,41,c]],.3);
+  for(const [a,b] of [[3,2],[59,43]]){B(a,b,2,2,2,39,roof);B(a-3,b-1,41,8,4,4,cream,1);}
+  // Two paddles lie flush on the table. They do not animate or imply a game demo.
+  for(const [a,b,col] of [[19,19,'#d29484'],[45,31,cream]]){
+   table.svg+=shape(on(PZ(z+14.4),ellUV(x+a,y+b,3,4,12)),col,.65);
+   table.svg+=shape(on(PZ(z+14.4),rectUV(x+a-1,y+b+3,x+a+1,y+b+7)),cream,.5);
+  }
+  break;
+ }
+ case 'gallery':{
+  for(let k=0;k<3;k++){
+   const a=k*21,h=41-k*10,b=3+k*3;
+   const wing=B(a,b,0,21,43-k*3,h,color,1);
+   for(const sign of [-1,1]){
+    panel(wing,'y',sign>0?46.2:b-.2,a+4,7,13,h-13,cream,sign);
+    panel(wing,'y',sign>0?46.3:b-.3,a+6,9,9,h-17,['#9eae8c','#b38e87','#819da6'][k],sign);
+   }
+   B(a-1,b-1,h,23,45-k*3,3,roof,1);
+   if(k===0){B(a+4,b+7,h+3,13,26,2,cream,1);B(a+5,b+8,h+5,11,24,4,glass,1);}
+  }
+  B(17,47,0,29,6,2,cream);B(21,47,2,21,4,2,cream);
+  break;
+ }
+ case 'play':{
+  const floor=B(0,0,0,64,49,2,cream,2);
+  for(let a=2;a<62;a+=10)for(let b=2;b<47;b+=9)if((Math.floor((a-2)/10)+Math.floor((b-2)/9))%2===0)floor.svg+=shape(on(PZ(z+2.1),rectUV(x+a,y+b,x+a+10,y+b+9)),color,0);
+  for(const [a,b,col] of [[4,3,color],[35,14,'#c1adbd']]){
+   const cabinet=B(a,b,2,23,24,36,col,2);
+   for(const sign of [-1,1]){
+    panel(cabinet,'y',sign>0?b+24.2:b-.2,a+3,19,17,15,cream,sign);
+    panel(cabinet,'y',sign>0?b+24.3:b-.3,a+5,21,13,11,dark,sign);
+   }
+   const deck=B(a,b+22,12,23,9,4,col,1);
+   for(const dx of [6,14])deck.svg+=shape(on(PZ(z+16.2),ellUV(x+a+dx,y+b+26,1.5,1.5,8)),cream,.5);
+   B(a-1,b-1,38,25,26,4,roof,1);
+   B(a+3,b+1,42,17,3,2,cream,1);
+  }
+  break;
+ }
+ case 'library':{
+  B(0,0,0,64,49,3,cream,1);
+  const room=B(3,3,3,48,39,33);windows(room,3,3,3,48,39,33);
+  for(let b=3;b<46;b+=13){B(55,b,3,4,4,33,cream);B(53,b-1,3,8,6,2,cream);B(53,b-1,34,8,6,2,cream);}
+  B(0,0,36,65,49,4,roof,1);B(6,5,40,44,38,3,cream,1);B(25,5,43,5,38,2,'#b77e70');
+  // A document relief set into the reading-room roof, with a red review margin.
+  const document=B(11,12,43,11,23,.8,'#e4ddc5');
+  for(let b=16;b<33;b+=4)document.svg+=topLine([[11,b,44],[22,b,44]],.4);
+  B(61,13,0,7,24,1,cream);B(61,16,1,5,18,2,cream);
+  break;
+ }
+ case 'market':{
+  for(const [a,b,col] of [[1,2,color],[35,2,'#b6b9a0'],[19,29,'#a4b8b6']]){
+   const kiosk=B(a,b,0,25,18,22,col,1);
+   for(const sign of [-1,1])panel(kiosk,'y',sign>0?b+18.2:b-.2,a+5,8,15,10,dark,sign);
+   const canopy=add(a+12,b+11,25,'');
+   for(let k=0;k<5;k++)canopy.svg+=box(x+a-2+k*6,y+b-2,z+23,x+a+4+k*6,y+b+23,z+26,matOf(k%2?cream:col));
+   for(const aa of [a,a+23])B(aa,b+21,0,2,2,23,roof);
+   B(a+2,b+17,8,21,6,3,cream);
+  }
+  break;
+ }
+ case 'dispatch':{
+  const shed=B(0,6,0,64,39,24,color,1);
+  for(const sign of [-1,1])for(const a of [5,35]){
+   panel(shed,'y',sign>0?45.2:5.8,a,3,24,18,dark,sign);
+   panel(shed,'y',sign>0?45.3:5.7,a+2,5,20,13,'#8b9c8c',sign);
+  }
+  B(-2,4,24,68,43,3,roof,1);B(0,45,0,65,9,3,cream,1);
+  const cabin=B(4,10,27,23,27,23);windows(cabin,4,10,27,23,27,23);B(2,8,50,27,31,3,roof,1);
+  for(const [a,b,h] of [[37,47,8],[48,47,12],[59,47,6]])B(a,b,3,9,7,h,cream,.8);
+  B(14,20,53,3,3,17,roof);B(7,20,66,17,3,2,cream);B(14,13,62,3,17,2,cream);
+  break;
+ }
+ case 'tower':{
+  for(const [a,b,w,d,c,h] of [[8,3,46,43,0,13],[14,9,34,31,13,28],[20,15,22,19,41,18]]){
+   const stage=B(a,b,c,w,d,h,color,1);
+   for(const sign of [-1,1])for(let v=c+5;v<c+h-2;v+=7)panel(stage,'y',b+(sign>0?d+.12:-.12),a+4,v,w-8,1,cream,sign);
+   B(a-2,b-2,c+h,w+4,d+4,2,roof,1);
+  }
+  const beacon=B(21,16,61,20,17,15,glass,1);
+  for(const sign of [-1,1])panel(beacon,'y',sign>0?33.2:15.8,24,64,14,9,cream,sign);
+  for(const a of [20,39])for(const b of [15,32])B(a,b,61,2,2,15,roof);
+  B(17,12,76,27,25,4,roof,1);B(29,23,80,3,3,11,cream);
+  break;
+ }
+ case 'archive':{
+  const wing=B(0,0,0,24,47,31);windows(wing,0,0,0,24,47,31);
+  const wing2=B(24,0,0,39,17,24);windows(wing2,24,0,0,39,17,24);
+  B(-2,-2,31,28,51,3,roof,1);B(23,-2,24,42,21,3,roof,1);
+  B(2,2,34,20,43,2,'#91a782',2);
+  for(const b of [8,22,36])B(6,b,36,12,7,3,'#b4c491',2);
+  // A courtyard map table links the archive to private place memories.
+  for(const a of [33,56])for(const b of [27,43])B(a,b,0,2,2,10,roof);
+  const map=B(30,24,10,31,24,2,cream,1);
+  map.svg+=topLine([[30,31,12.2],[61,31,12.2]],.55)+topLine([[39,24,12.2],[39,48,12.2]],.55)+topLine([[30,43,12.2],[49,24,12.2]],.55);
+  const markerStart=parts.length;
+  for(const [a,b] of [[35,28],[45,35],[55,44]]){B(a,b,12,1.4,1.4,6,roof);B(a-1,b-1,18,3.4,3.4,3,color,.8);}
+  map.svg+=byDepth(parts.splice(markerStart));
+  B(24,48,0,39,5,4,color,1);B(27,49,4,33,3,2,'#91a782');
+  break;
+ }
+ case 'workshop':{
+  const shed=B(0,0,0,63,26,27);windows(shed,0,0,0,63,26,27);
+  // Two glazed roof bays, each with a real roof thickness and ridge.
+  for(let k=0;k<2;k++){
+   const b=k*13;
+   const bay=add(31,b+6,32,isRoof(x,y+b,z+27,63,10,11,roof.l));
+   // The pane follows the near roof slope (rise 11 over run 8), not its interior.
+   if(vis([0,-11,8]))bay.svg+=shape([[x+3,y+b+1,z+32.65],[x+59,y+b+1,z+32.65],[x+59,y+b+4,z+36.775],[x+3,y+b+4,z+36.775]],glass,.6);
+  }
+  for(const a of [4,44])for(const b of [33,49])B(a,b,0,3,3,11,roof);
+  const work=B(1,31,11,50,23,3,cream,1);
+  work.svg+=shape(on(PZ(z+14.15),rectUV(x+4,y+34,x+48,y+51)),'#aaa996',.5);
+  const pieceStart=parts.length;
+  for(const [a,b,w,d] of [[5,35,15,7],[22,35,24,7],[5,44,10,6],[17,44,13,6],[32,44,14,6]])B(a,b,14.2,w,d,.65,color,.4);
+  work.svg+=byDepth(parts.splice(pieceStart));
+  B(56,31,0,8,23,3,roof);for(let k=0;k<4;k++)B(56+k*2,32,3,1.2,21,17+k*2,cream);
+  break;
+ }
+ }
+ return `<g data-architecture="${isInfo[i][4]}">${base}${byDepth(parts)}</g>`;
+}
+
+// Colorfigures primitives, scoped to two SVG surfaces. No mountFigure or animation loop.
 const isInfo=[
  ['The commons','Group coordination','DIP focuses on group coordination.',['Coordination','Groups'],'hall'],
  ['Rental house','Agentic rentals','GIMI explores agentic rentals.',['Agents','Rentals'],'house'],
@@ -454,84 +861,16 @@ const isInfo=[
  ['Layout workshop','Nesting for print shops','EZNest is a nesting workspace for print shops, focused on arranging pieces on material. Explore the preview.',['Nesting','Layouts','Print shops'],'workshop']
 ];
 const isPositions=[[75, 55], [195, 55], [435, 70], [65, 165], [185, 165], [305, 165], [425, 180], [90, 285], [210, 285], [330, 285], [450, 290]];
-const isColors=['#b7c69b', '#d6ae88', '#b1c7a0', '#c1b5cc', '#d29f91', '#d7c8a7', '#a8b9a4', '#e2d27a', '#a4b8c7', '#becd9b', '#c3a5a0'];
+const isColors=['#b7c69b', '#d6ae88', '#b1c7a0', '#c1b5cc', '#d29f91', '#d7c8a7', '#a8b9a4', '#e2d27a', '#a4b8c7', '#becd9b', '#c3a5a0']; // eslint-disable-line @typescript-eslint/no-unused-vars -- shared drawing globals
 let isSelected=7,isView='island',isAngle=0,isElev=IS_BASE_ELEV,isZoom=1,isPan=[0,0];
 const isEscape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const isMat={ground:{l:'#82917a',m:'#5a6b5a',d:'#3b4b42'},stone:{l:'#bbc2aa',m:'#8a9782',d:'#62755f'},roof:{l:'#537077',m:'#3d5961',d:'#2b454e'},window:{l:'#e8d997',m:'#c4b573',d:'#a3945d'}};
-function isRoof(x,y,z,w,d,rise,color){const m=matOf(color),faces=[
- [[0,-rise,d/2],[[x-3,y-3,z],[x+w+3,y-3,z],[x+w+3,y+d/2,z+rise],[x-3,y+d/2,z+rise]]],
- [[0,rise,d/2],[[x-3,y+d/2,z+rise],[x+w+3,y+d/2,z+rise],[x+w+3,y+d+3,z],[x-3,y+d+3,z]]],
+const isMat={ground:{l:'#82917a',m:'#5a6b5a',d:'#3b4b42'},stone:{l:'#bbc2aa',m:'#8a9782',d:'#62755f'},roof:{l:'#537077',m:'#3d5961',d:'#2b454e'},window:{l:'#e8d997',m:'#c4b573',d:'#a3945d'}}; // eslint-disable-line @typescript-eslint/no-unused-vars -- shared drawing globals
+function isRoof(x,y,z,w,d,rise,color){const m=matOf(color),faces=[ // eslint-disable-line @typescript-eslint/no-unused-vars -- shared drawing globals
+ [[0,-rise,d/2+3],[[x-3,y-3,z],[x+w+3,y-3,z],[x+w+3,y+d/2,z+rise],[x-3,y+d/2,z+rise]]],
+ [[0,rise,d/2+3],[[x-3,y+d/2,z+rise],[x+w+3,y+d/2,z+rise],[x+w+3,y+d+3,z],[x-3,y+d+3,z]]],
  [[1,0,0],[[x+w+3,y-3,z],[x+w+3,y+d+3,z],[x+w+3,y+d/2,z+rise]]],
  [[-1,0,0],[[x-3,y-3,z],[x-3,y+d+3,z],[x-3,y+d/2,z+rise]]]];
  return faces.filter(([n])=>vis(n)).map(([n,q])=>shape(q,toneI(norm(n),m),1.4)).join('');}
-function isWindows(x,y,z,w,d,h){let s='';for(const side of [-1,1]){
- if(vis([0,side,0]))for(const xx of [x+10,x+w-18]){const yy=side>0?y+d+.15:y-.15;s+=shape(on(PY(yy),rectUV(xx,z+8,xx+8,z+19)),'#e8d997',.8);s+=line([[xx+4,yy,z+8],[xx+4,yy,z+19]],.5);}
- if(vis([side,0,0])){const xx=side>0?x+w+.2:x-.2;s+=shape(on(PX(xx),rectUV(y+d/2-6,z,y+d/2+6,z+Math.min(h-2,22))),'#334f50',1.1);s+=shape(on(PX(xx),rectUV(y+6,z+8,y+13,z+19)),'#e8d997',.7);}}
- return s;}
-function isBuilding(i,x,y,z){
- const kind=isInfo[i][4],m=matOf(isColors[i]);let s='';const w=62,d=48;
- s+=box(x-5,y-5,z-3,x+w+6,y+d+7,z,isMat.stone);
- if(kind==='dispatch')s+=box(x+62,y+12,z,x+75,y+35,z+3,isMat.stone);
- if(kind==='workshop')s+=box(x+62,y+8,z,x+76,y+38,z+3,isMat.stone);
- if(kind==='hall')s+=box(x+61,y+12,z,x+78,y+36,z+3,isMat.stone);
- if(kind==='tower'){
- s+=box(x+12,y+9,z,x+46,y+39,z+53,m);s+=isWindows(x+12,y+9,z,34,30,53);
- s+=box(x+8,y+5,z+51,x+50,y+43,z+56,isMat.roof);
- s+=cyl(x+29,y+24,z+56,z+74,12,m);s+=cyl(x+29,y+24,z+65,z+68,13,isMat.window);
- s+=cyl(x+29,y+24,z+74,z+78,15,isMat.roof);s+=rod([x+29,y+24,z+78],[x+29,y+24,z+92],.9,isMat.window);
- }else if(kind==='dispatch'){
- s+=box(x,y,z,x+62,y+48,z+34,m);s+=box(x+5,y+4,z+34,x+40,y+44,z+54,m);
- s+=box(x-2,y-2,z+33,x+64,y+50,z+37,isMat.roof);s+=box(x+3,y+2,z+54,x+42,y+46,z+58,isMat.roof);
- s+=isWindows(x,y,z,62,48,34);if(vis([1,0,0]))s+=shape(on(PX(x+62.3),rectUV(y+7,z+3,y+42,z+24)),'#354d50',1);
- if(vis([1,0,0]))for(const yy of [y+11,y+26])s+=shape(on(PX(x+62.5),rectUV(yy,z+7,yy+11,z+20)),'#b8cbb0',.7);
- s+=rod([x+24,y+24,z+58],[x+24,y+24,z+73],.8,isMat.roof);s+=cyl(x+24,y+24,z+71,z+74,4,isMat.window);
- }else if(kind==='workshop'){
- s+=box(x,y,z,x+62,y+48,z+32,m);
- const teeth=[];for(let r=0;r<3;r++){const yy=y+r*16,faces=[
- [[0,-12,13],[[x-2,yy,z+32],[x+64,yy,z+32],[x+64,yy+13,z+44],[x-2,yy+13,z+44]]],
- [[0,12,3],[[x-2,yy+13,z+44],[x+64,yy+13,z+44],[x+64,yy+16,z+32],[x-2,yy+16,z+32]]],
- [[1,0,0],[[x+64,yy,z+32],[x+64,yy+16,z+32],[x+64,yy+13,z+44]]],
- [[-1,0,0],[[x-2,yy,z+32],[x-2,yy+16,z+32],[x-2,yy+13,z+44]]]];
- teeth.push({at:[x+31,yy+8,z+38],svg:faces.filter(([n])=>vis(n)).map(([n,q])=>shape(q,toneI(norm(n),isMat.roof),1)).join('')});}s+=byDepth(teeth);
- s+=isWindows(x,y,z,62,48,32);
- }else if(kind==='gallery'){
- s+=box(x,y,z,x+62,y+48,z+31,m);s+=box(x-2,y-2,z+31,x+64,y+50,z+35,isMat.roof);
- if(vis([0,1,0]))s+=shape(on(PY(y+48.2),rectUV(x+6,z+5,x+55,z+26)),'#344f54',1);
- if(vis([0,1,0]))for(let f=0;f<3;f++){if(vis([0,1,0]))s+=shape(on(PY(y+48.4),rectUV(x+10+f*15,z+9,x+20+f*15,z+22)),['#c3b37f','#d49b86','#95b9b8'][f],.8);}
- s+=isWindows(x,y,z,62,48,31);
- }else if(kind==='station'){
- const pad=s;s='';s+=box(x,y,z,x+33,y+47,z+30,m);s+=isRoof(x,y,z+30,33,47,13,isMat.roof.l);s+=isWindows(x,y,z,33,47,30);
- const body=s;s='';s+=box(x+34,y+4,z,x+72,y+43,z+2,isMat.stone);
- s+=box(x+36,y+7,z+2,x+39,y+10,z+26,isMat.roof)+box(x+68,y+37,z+2,x+71,y+40,z+26,isMat.roof);
- s+=box(x+34,y+4,z+26,x+74,y+44,z+29,m);s=pad+(vis([1,0,0])?body+s:s+body);
- }else if(kind==='club'){
- s+=box(x,y,z,x+62,y+48,z+22,m);s+=box(x-2,y-2,z+22,x+64,y+50,z+26,isMat.roof);
- s+=box(x+10,y+10,z+26,x+52,y+37,z+29,matOf('#94b7bc'));
- s+=line([[x+31,y+10,z+29.1],[x+31,y+37,z+29.1]],1);s+=line([[x+10,y+23,z+29.1],[x+52,y+23,z+29.1]],.7);
- s+=isWindows(x,y,z,62,48,22);
- }else if(kind==='market'){
- const pad=s;s='';s+=box(x,y,z,x+57,y+48,z+32,m);s+=box(x-2,y-2,z+32,x+59,y+50,z+36,isMat.roof);
- const body=s;s='';for(let k=0;k<4;k++){s+=shape([[x+57,y+k*12,z+26],[x+72,y+k*12,z+19],[x+72,y+k*12+12,z+19],[x+57,y+k*12+12,z+26]],k%2?'#d0c590':'#91b0aa',.8);}
- s+=box(x+70,y+1,z,x+72,y+3,z+19,isMat.roof)+box(x+70,y+45,z,x+72,y+47,z+19,isMat.roof);
- s=pad+(vis([1,0,0])?body+s:s+body);s+=isWindows(x,y,z,57,48,32);
- }else if(kind==='library'){
- s+=box(x,y,z,x+62,y+48,z+37,m);s+=isRoof(x,y,z+37,62,48,11,isMat.roof.l);
- if(vis([1,0,0]))for(let k=0;k<4;k++)s+=box(x+62,y+4+k*13,z,x+66,y+7+k*13,z+31,matOf('#e5ddbf'));
- if(vis([1,0,0]))s+=shape(on(PX(x+62.2),rectUV(y+18,z,y+32,z+26)),'#3c5152',.9);s+=isWindows(x,y,z,62,48,37);
- }else if(kind==='archive'){
- s+=box(x,y,z,x+62,y+48,z+36,m);s+=isRoof(x,y,z+36,62,48,17,isMat.roof.l);s+=isWindows(x,y,z,62,48,36);
- s+=box(x+10,y+11,z+42,x+22,y+23,z+56,m);s+=box(x+8,y+9,z+55,x+24,y+25,z+58,isMat.roof);
- if(vis([0,1,0]))s+=shape(on(PY(y+48.4),rectUV(x+22,z+9,x+40,z+29)),'#94b0ad',1);if(vis([0,1,0]))s+=line([[x+23,y+48.6,z+13],[x+31,y+48.6,z+24],[x+39,y+48.6,z+17]],1);
- }else if(kind==='play'){
- s+=cyl(x+31,y+24,z,z+29,28,m);s+=cyl(x+31,y+24,z+29,z+34,32,isMat.roof);
- s+=rod([x+31,y+24,z+34],[x+31,y+24,z+51],.9,isMat.roof);s+=shape([[x+31,y+24,z+51],[x+49,y+24,z+46],[x+31,y+24,z+41]],'#d5ba89',1);
- if(vis([1,0,0]))s+=shape(on(PX(x+55),rectUV(y+17,z+1,y+29,z+20)),'#344e50',1);
- }else{
- s+=box(x,y,z,x+62,y+48,z+34,m);s+=isRoof(x,y,z+34,62,48,kind==='hall'?19:22,isMat.roof.l);s+=isWindows(x,y,z,62,48,34);
- if(kind==='hall'){s+=cyl(x+32,y+24,z+54,z+59,6,isMat.window);}
- }
- return s;
-}
 function isTree(x,y,z,size=1){return rod([x,y,z],[x,y,z+14*size],2*size,matOf('#82765b'))+cyl(x,y,z+10*size,z+20*size,9*size,matOf('#688a68'))+cyl(x,y,z+20*size,z+28*size,6*size,matOf('#8f9f76'));}
 function isMap(){
  OX=400;OY=40;INK_K=1.15;VIEW=0;RC=[280,210];IS_ORBIT=isAngle;IS_ELEV=isElev;setLight(105);_clipN=0;
@@ -556,7 +895,7 @@ function isMap(){
  // Trees stay along the shoreline so they cannot occlude a building's controls.
 
  trees.forEach(([x,y,k])=>scenery.push({at:[x,y,15],svg:inkScale(isTree(x,y,15,k))}));
- let labels='';isPositions.forEach(([x,y],i)=>{const [px,py]=P(x+55,y+51,14),name=projects[i][0],width=name.length*5.8+28;labels+=`<g class="map-label${i===isSelected?' selected':''}" data-label="${i}" aria-hidden="true"><rect x="${px-width/2}" y="${py+7}" width="${width}" height="21" rx="3"/><text x="${px}" y="${py+21}" text-anchor="middle"><tspan class="label-no">${String(i+1).padStart(2,'0')} </tspan>${isEscape(name)}</text></g>`;});
+ let labels='';isPositions.forEach(([x,y],i)=>{const [px,py]=P(x+55,y+51,14),name=projects[i][0],width=name.length*5.8+28;if(isZoom>1.8&&i!==isSelected)return;labels+=`<g class="map-label${i===isSelected?' selected':''}" data-label="${i}" aria-hidden="true"><rect x="${px-width/2}" y="${py+7}" width="${width}" height="21" rx="3"/><text x="${px}" y="${py+21}" text-anchor="middle"><tspan class="label-no">${String(i+1).padStart(2,'0')} </tspan>${isEscape(name)}</text></g>`;});
  document.querySelector('#is-map').innerHTML=`<g transform="translate(${460+isPan[0]} ${285+isPan[1]}) scale(${isZoom}) translate(-460 -285)"><g>${terrain}</g><g>${byDepth(scenery)}</g><g>${labels}</g></g>`;
 }
 function isPortrait(i){IS_ELEV=IS_BASE_ELEV;IS_ORBIT=0;RC=[0,0];OX=110;OY=90;INK_K=.62;VIEW=0;setLight(105);_clipN=0;const m={l:'#6d7c68',m:'#4f6054',d:'#33483f'};return inkScale(board(-10,-8,90,77,5,5,m)+isBuilding(i,0,0,8));}
