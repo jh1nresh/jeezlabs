@@ -9,7 +9,7 @@ export const infoPages = {
         'For a question about a particular product, start with its website or source repository in the index. Include the product name, the page you were using and a short description of what happened. A directory listing does not mean every product has the same support arrangements or availability.',
       ], links: [
         ['JeezLabs on X', 'https://x.com/jeezlabsio'],
-        ['jhinresh on GitHub', 'https://github.com/JhiNResH'],
+        ['jhinresh on GitHub', 'https://github.com/jh1nresh'],
         ['jhinresh on X', 'https://x.com/JhiNResH'],
         ['ezven on GitHub', 'https://github.com/Ferxxo-pa'],
         ['ezven on X', 'https://x.com/ezveng'],
