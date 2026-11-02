@@ -5,6 +5,13 @@ changing its order or project numbers. **Explore** opens `/explore.html`, an
 optional illustrated island with orbit, tilt, zoom, pan and click-to-enter
 camera transitions. Its **Index** link returns to the homepage.
 
+**Updates** (`/updates`, with `/updates.md` for agents) is a dated archive of
+films and project appearances. `lib/updates.ts` owns the source metadata. The
+first item is the 2026-03-12 Virtuals Protocol introduction, titled “a little about us” in this archive. Its
+original X post remains linked; the external embed loads only after a visitor
+chooses it, and closing it removes the iframe. This does not host a copy of the
+video or guarantee X playback. No X SDK is loaded into the host page.
+
 `app/products.ts` is the product source for the React index, Markdown responses,
 and the generated Explore page. The current selection has 11 projects:
 Live 3, Shipped 4, Building 2, Preview 2. OUTPUT and EZNest are previews. MAIAT

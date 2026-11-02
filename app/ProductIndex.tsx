@@ -27,7 +27,7 @@ export default function ProductIndex() {
   return <div className={styles.root}>
     <a className="skip" href="#products">Skip to products</a>
     <div className="page">
-      <header><Link className="brand" href="/" aria-label="JeezLabs home"><span className="brand-mark" aria-hidden="true" />JEEZLABS</Link><span className="header-note">INDEPENDENT PRODUCT STUDIO</span><nav aria-label="Main navigation"><a href="/about">ABOUT</a><OutLink href="https://github.com/jh1nresh/jeezlabs">GH ↗</OutLink><OutLink href={SITE_X}>X ↗</OutLink></nav></header>
+      <header><Link className="brand" href="/" aria-label="JeezLabs home"><span className="brand-mark" aria-hidden="true" />JEEZLABS</Link><span className="header-note">INDEPENDENT PRODUCT STUDIO</span><nav aria-label="Main navigation"><a href="/about">ABOUT</a><Link href="/updates">UPDATES</Link><OutLink href="https://github.com/jh1nresh/jeezlabs">GH ↗</OutLink><OutLink href={SITE_X}>X ↗</OutLink></nav></header>
       <nav className="browse-mode" aria-label="Browse mode"><Link href="/" aria-current="page">01 / INDEX</Link><a href="/explore.html">02 / EXPLORE <span aria-hidden="true">↗</span></a></nav>
       <main id="products">
         <h1 className="sr-only">JeezLabs product lab — product drop index</h1>

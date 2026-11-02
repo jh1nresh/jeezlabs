@@ -3,6 +3,7 @@ import { after, before, test } from 'node:test';
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:net';
 import { readdirSync } from 'node:fs';
+import { updates, updatesMarkdown, UPDATES_UPDATED } from '../lib/updates.ts';
 import { PRODUCTS } from '../app/products.ts';
 import { SITE_URL, SITE_X } from '../lib/site.ts';
 import { aboutIntro, aboutDirectory, aboutExplore, aboutMakers, builders } from '../lib/about.ts';
@@ -140,7 +141,7 @@ test('robots and sitemap use canonical URLs and valid document structure', async
   assert.match(sitemap.response.headers.get('content-type'), /xml/);
   assert.match(sitemap.body, /<urlset xmlns="http:\/\/www.sitemaps.org\/schemas\/sitemap\/0.9">/);
   const urls = [...sitemap.body.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
-  assert.deepEqual(urls, ['https://www.jeezlabs.io/', 'https://www.jeezlabs.io/about', 'https://www.jeezlabs.io/explore.html', 'https://www.jeezlabs.io/contact', 'https://www.jeezlabs.io/privacy']);
+  assert.deepEqual(urls, ['https://www.jeezlabs.io/', 'https://www.jeezlabs.io/about', 'https://www.jeezlabs.io/explore.html', 'https://www.jeezlabs.io/contact', 'https://www.jeezlabs.io/privacy', 'https://www.jeezlabs.io/updates']);
   const dates = [...sitemap.body.matchAll(/<lastmod>(.*?)<\/lastmod>/g)].map(m => m[1]);
   assert.equal(dates.length, urls.length);
   for (const date of dates) assert.ok(Number.isFinite(Date.parse(date)));
@@ -247,4 +248,38 @@ test('About preserves builder identity and shares factual content with Markdown'
   for (const path of ['/', '/about', '/contact', '/privacy', '/explore.html']) {
     const {body} = await get(path, 'text/html'); assert.ok(body.includes(`href="${SITE_X}"`),path); assert.ok(!body.includes('x.com/0xmaiat'),path);
   }
+});
+
+test('Updates has dated source-backed content without loading external media on first render', async () => {
+  const { response, body } = await get('/updates', 'text/html');
+  assert.equal(response.status, 200);
+  assert.match(body, /rel="canonical" href="https:\/\/www.jeezlabs.io\/updates"/);
+  assert.match(body, /property="og:url" content="https:\/\/www.jeezlabs.io\/updates"/);
+  assert.match(body, /<h1>Updates<\/h1>/);
+  assert.doesNotMatch(body, /<iframe|<script[^>]+src="https:\/\/(platform|publish)\./);
+  for (const entry of updates) {
+    assert.ok(body.includes(`id="${entry.slug}"`));
+    assert.ok(body.includes(entry.title));
+    assert.ok(body.includes(`dateTime="${entry.published}"`));
+    assert.ok(body.includes(entry.sourceHandle));
+    assert.ok(body.includes(`href="${entry.sourceUrl}"`));
+    assert.ok(new Date(entry.published) <= new Date(UPDATES_UPDATED));
+  }
+  assert.match(body, /a little about us/); assert.doesNotMatch(body, /Meet Jerry/);
+  assert.match(body, /Load X post/); assert.match(body, /X may process request information/);
+  for (const path of ['/', '/about', '/contact', '/privacy', '/explore.html']) {
+    assert.ok((await get(path, 'text/html')).body.includes('href="/updates"'),path);
+  }
+  assert.ok((await get('/llms.txt', '*/*')).body.includes('/updates.md'));
+});
+test('Updates supports negotiated/direct Markdown, HEAD and invalid Accept', async () => {
+  const md=await get('/updates','text/markdown');
+  assert.equal(md.response.status,200); vary(md.response);
+  assert.ok(md.response.headers.get('content-type').startsWith('text/markdown'));
+  assert.equal(md.body,updatesMarkdown(SITE_URL));
+  assert.equal(md.body,(await get('/updates.md','*/*')).body);
+  for (const entry of updates) {assert.ok(md.body.includes(entry.published));assert.ok(md.body.includes(entry.sourceUrl));assert.ok(md.body.includes(entry.description));}
+  const head=await get('/updates','text/markdown','HEAD');
+  assert.equal(head.response.status,200); assert.equal(head.body,''); vary(head.response);
+  const denied=await get('/updates','application/json');assert.equal(denied.response.status,406);
 });

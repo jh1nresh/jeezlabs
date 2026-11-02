@@ -103,3 +103,24 @@ approval. Markup changes cannot guarantee a top-ten ranking.
 
 References: https://ogp.me/ ; https://www.sitemaps.org/protocol.html ;
 https://llmstxt.org/ ; https://schema.org/Organization .
+
+## Updates (2026-11-02)
+
+`/updates` and `/updates.md` expose the same repository-owned archive metadata.
+The initial entry is titled “a little about us”, following the owner's chosen
+label; its original Virtuals Protocol source and 2026-03-12 publication date
+were verified against the public post and X oEmbed response. The page's update
+date is separate from the original post date. No transcript, duration or video
+performance claim was inferred from inaccessible playback.
+
+The X iframe is absent from initial HTML and client render. A visitor explicitly
+loads it, can close it, and can always use the original link. No external X SDK
+runs in the host document. The privacy page describes this optional connection.
+
+Lint, Webpack build, typecheck and 41 tests passed. Browser checks exercised
+iframe counts 0/1/0/1, keyboard activation and focus return to the load button.
+At 320px, the Updates document stayed within the viewport; Index and Explore
+navigation also stayed contained at a narrower 291px browser viewport. The X
+frame endpoint loaded, but actual video playback was unavailable in the test
+browser and is not claimed as verified. A visible original-source fallback
+remains available above the player. No merge or deployment is included.
