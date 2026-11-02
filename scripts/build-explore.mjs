@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { Script } from "node:vm";
+import { portableHeader } from "../lib/navigation.ts";
 import { PRODUCTS } from "../app/products.ts";
 const root = new URL("../studio/explore/", import.meta.url);
 const read = name => readFileSync(new URL(name, root), "utf8");
@@ -13,6 +14,7 @@ const anatomy = 'const IS_ANATOMY=(()=>{\n'+read('anatomy-solids.mjs').replace(/
 if ([core,anatomy,architecture,island].some(s=>s.toLowerCase().includes("</script")) || [license,anatomyLicense].some(s=>s.includes("-->"))) throw new Error("Unsafe inline delimiter");
 const drawing = anatomy+'\n'+architecture+'\n'+island;
 new Script(core+"\n"+projectScript+"\n"+drawing);
-const page=read("template.html").replace('<script src="core.js"></script>', '<!--\n'+license+'\n'+anatomyLicense+'\n-->\n<script>'+core+'</script>').replace('/*PROJECTS*/',projectScript).replace('/*ISLAND*/',drawing);
+const headerCSS=readFileSync(new URL("../app/header.css",import.meta.url),"utf8");
+const page=read("template.html").replace("<!--SITE_HEADER-->",portableHeader()).replace("/*SITE_HEADER_CSS*/",headerCSS).replace('<script src="core.js"></script>', '<!--\n'+license+'\n'+anatomyLicense+'\n-->\n<script>'+core+'</script>').replace('/*PROJECTS*/',projectScript).replace('/*ISLAND*/',drawing);
 writeFileSync(new URL("../public/explore.html",import.meta.url),page);
 console.log("Built public/explore.html from shared products and studio/explore");

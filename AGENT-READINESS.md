@@ -103,3 +103,54 @@ approval. Markup changes cannot guarantee a top-ten ranking.
 
 References: https://ogp.me/ ; https://www.sitemaps.org/protocol.html ;
 https://llmstxt.org/ ; https://schema.org/Organization .
+
+## Updates (2026-11-02)
+
+`/updates` and `/updates.md` expose the same repository-owned archive metadata.
+The initial entry is titled “a little about us”, following the owner's chosen
+label; its original Virtuals Protocol source and 2026-03-12 publication date
+were verified against the public post and X oEmbed response. The page's update
+date is separate from the original post date. No transcript, duration or video
+performance claim was inferred from inaccessible playback.
+
+The HTML page loads the official X widget script after hydration, and the
+widget owns the iframe's height. The host supplies no fixed-height frame, poster,
+close button or explanatory panel. The widget viewport is clipped to its native
+16px corner radius so the embedded document's white canvas cannot show through
+at the four corners. The original link is the SSR/loading/failure fallback;
+Markdown never loads X. Privacy copy explicitly describes the HTML connection.
+
+Lint, Webpack build, typecheck and 41 tests passed. Browser checks confirm the
+native post and video poster appear, iframe height follows content rather than
+640px, and desktop/narrow layouts stay contained. The iframe is removed on
+navigation, with per-mount cancellation guarding late SDK completions. Actual
+video playback is not required to establish these layout checks. No merge or
+deployment is included.
+
+## Consistent navigation (2026-11-02)
+
+All six public HTML routes use the same ABOUT / UPDATES links and home logo.
+React pages share SiteHeader; the portable Explore builder reads the same link
+data and header CSS. GH and studio X are in the footer. Active state changes
+color only, and a stable scrollbar gutter prevents width changes between pages.
+
+Lint, Webpack production build, typecheck and 42 tests pass on the identical
+source exported outside iCloud; the original dependency files had been offloaded
+and could not start Next.js. Generated Explore output was copied back and checked
+for source parity. Browser navigation and geometry checks at actual 1600px and
+320px viewport widths confirm identical header/link positions across Index,
+About, Updates and Explore, with no horizontal overflow. About / Updates / home
+links were exercised. No dependencies or media behavior changed; existing audit
+findings remain outside this navigation fix. No merge or deployment is included.
+
+## Verified source links (2026-11-02)
+
+The owner confirmed savvy's website (https://savvy.jeezlabs.io/) and source
+(https://github.com/jh1nresh/SAV-E). AgentShack now links to jh1nresh/agentshack,
+and GIMI to jh1nresh/Gimi; both were verified as public repositories. About and
+Contact use the current jh1nresh GitHub profile. The old MAIAT Protocol repository
+returned 404 and no matching public repository appeared in the account's complete
+82-repository listing, so its broken source link was removed; its website stays.
+The three ezven repository links were verified public and retained. No private
+repository links were added. Index, Explore and Markdown share the product data.
+Lint, Webpack build, typecheck and 42 tests passed on the identical source copy.

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Instrument_Serif, Newsreader } from "next/font/google";
 import "./globals.css";
+import "./header.css";
 import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "../lib/site";
 
 const mono = JetBrains_Mono({

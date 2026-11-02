@@ -3,6 +3,6 @@ export const aboutDirectory = 'The index lists what we build and who built it. E
 export const aboutExplore = 'Explore is another way to browse the same projects. Each building is a project entrance: selecting it moves the camera and opens its introduction. The buildings are illustrations, not working product demos. Use the original product links for functionality and integration details.';
 export const aboutMakers = 'JH identifies work by jhinresh, EZ identifies work by ezven, and both initials indicate shared work. JL identifies projects listed under JeezLabs. The directory keeps these credits alongside each project.';
 export const builders = [
-  {name:'jhinresh',image:'/avatars/jhinresh.jpg',github:'https://github.com/JhiNResH',x:'https://x.com/JhiNResH'},
+  {name:'jhinresh',image:'/avatars/jhinresh.jpg',github:'https://github.com/jh1nresh',x:'https://x.com/JhiNResH'},
   {name:'ezven',image:'/avatars/ezven.jpg',github:'https://github.com/Ferxxo-pa',x:'https://x.com/ezveng'},
 ] as const;

@@ -1,3 +1,4 @@
+import { updatesMarkdown } from "./lib/updates";
 import { SITE_URL } from "./lib/site";
 import { infoMarkdown } from "./lib/info-pages";
 import Negotiator from "negotiator";
@@ -19,7 +20,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const direct = path === "/index.md" || path === "/about.md" || path === "/llms.txt" || path === "/explore.md" || path === "/contact.md" || path === "/privacy.md";
+  const direct = path === "/index.md" || path === "/about.md" || path === "/llms.txt" || path === "/explore.md" || path === "/contact.md" || path === "/privacy.md" || path === "/updates.md";
   const type = direct ? markdownType : new Negotiator({
     headers: { accept: request.headers.get("accept") ?? undefined },
   }).mediaType([htmlType, markdownType]);
@@ -50,6 +51,8 @@ export function proxy(request: NextRequest) {
     case "/contact.md": body = infoMarkdown("contact", SITE_URL); break;
     case "/privacy":
     case "/privacy.md": body = infoMarkdown("privacy", SITE_URL); break;
+    case "/updates":
+    case "/updates.md": body = updatesMarkdown(SITE_URL); break;
     case "/llms.txt": body = llmsText; break;
     case "/explore.html":
     case "/explore.md": body = exploreMarkdown(); break;

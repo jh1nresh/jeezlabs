@@ -49,7 +49,7 @@ export const PRODUCTS: Product[] = [
     art: "art-8",
     desc: "Award-winning AI rental agent for school, community, and hackathon inventory.",
     href: "https://gimi-pr18.vercel.app/",
-    repo: "https://github.com/clawdez/Gimi",
+    repo: "https://github.com/jh1nresh/Gimi",
     hackathon: "hackathon winner",
     previewImage: "/previews/gimi.png",
     preview: {
@@ -163,7 +163,7 @@ export const PRODUCTS: Product[] = [
     desc: "AI agent marketplace for hiring, subscribing to, and forking agents with verifiable work history.",
     hackathon: "hackathon winner",
     href: "https://agentshack.io/",
-    repo: "https://github.com/JhiNResH/maiat-dojo",
+    repo: "https://github.com/jh1nresh/agentshack",
     previewImage: "/previews/dojo.png",
     preview: {
       lead: "AgentShack is an AI agent marketplace for hiring, subscribing to, and forking agents with verifiable work history, payments, and reputation.",
@@ -203,7 +203,6 @@ export const PRODUCTS: Product[] = [
     desc: "Trust oracle for AI agents, tokens, attestations, and agentic commerce.",
     hackathon: "hackathon winner",
     href: "https://app.maiat.io/",
-    repo: "https://github.com/JhiNResH/maiat-protocol",
     previewImage: "/previews/maiat-protocol.png",
     preview: {
       lead: "A protocol layer for trust signals, attestations, and reputation across agentic commerce.",
@@ -219,7 +218,8 @@ export const PRODUCTS: Product[] = [
     art: "art-4",
     desc: "Private place-memory app for iOS. Save places from shared links; review uncertain matches before adding them to a private map.",
     builtBy: "jhinresh",
-    repo: "https://github.com/JhiNResH/wanderly",
+    href: "https://savvy.jeezlabs.io/",
+    repo: "https://github.com/jh1nresh/SAV-E",
     previewImage: "/previews/wanderly.png",
     preview: {
       lead: "savvy saves places from shared links, with Review for uncertain matches and a private map for confirmed places.",

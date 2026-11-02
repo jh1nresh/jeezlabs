@@ -3,6 +3,8 @@ import { after, before, test } from 'node:test';
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:net';
 import { readdirSync } from 'node:fs';
+import { PRIMARY_NAV } from '../lib/navigation.ts';
+import { updates, updatesMarkdown, UPDATES_UPDATED } from '../lib/updates.ts';
 import { PRODUCTS } from '../app/products.ts';
 import { SITE_URL, SITE_X } from '../lib/site.ts';
 import { aboutIntro, aboutDirectory, aboutExplore, aboutMakers, builders } from '../lib/about.ts';
@@ -140,7 +142,7 @@ test('robots and sitemap use canonical URLs and valid document structure', async
   assert.match(sitemap.response.headers.get('content-type'), /xml/);
   assert.match(sitemap.body, /<urlset xmlns="http:\/\/www.sitemaps.org\/schemas\/sitemap\/0.9">/);
   const urls = [...sitemap.body.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
-  assert.deepEqual(urls, ['https://www.jeezlabs.io/', 'https://www.jeezlabs.io/about', 'https://www.jeezlabs.io/explore.html', 'https://www.jeezlabs.io/contact', 'https://www.jeezlabs.io/privacy']);
+  assert.deepEqual(urls, ['https://www.jeezlabs.io/', 'https://www.jeezlabs.io/about', 'https://www.jeezlabs.io/explore.html', 'https://www.jeezlabs.io/contact', 'https://www.jeezlabs.io/privacy', 'https://www.jeezlabs.io/updates']);
   const dates = [...sitemap.body.matchAll(/<lastmod>(.*?)<\/lastmod>/g)].map(m => m[1]);
   assert.equal(dates.length, urls.length);
   for (const date of dates) assert.ok(Number.isFinite(Date.parse(date)));
@@ -171,7 +173,13 @@ test('approved index has eleven products and the requested status changes', asyn
   assert.equal(PRODUCTS.length, 11);
   assert.ok(!PRODUCTS.some(p => ['pincher', 'jiagon', 'cloak'].includes(p.slug)));
   assert.equal(PRODUCTS.find(p => p.slug === 'maiat-protocol')?.s, 'shipped');
-  assert.equal(PRODUCTS.find(p => p.slug === 'wanderly')?.t, 'savvy');
+  const savvy = PRODUCTS.find(p => p.slug === 'wanderly');
+  assert.equal(savvy?.t, 'savvy');
+  assert.equal(savvy?.href, 'https://savvy.jeezlabs.io/');
+  assert.equal(savvy?.repo, 'https://github.com/jh1nresh/SAV-E');
+  assert.equal(PRODUCTS.find(p => p.slug === 'agentshack')?.repo, 'https://github.com/jh1nresh/agentshack');
+  assert.equal(PRODUCTS.find(p => p.slug === 'gimi')?.repo, 'https://github.com/jh1nresh/Gimi');
+  assert.equal(PRODUCTS.find(p => p.slug === 'maiat-protocol')?.repo, undefined);
   assert.equal(PRODUCTS.filter(p => p.s === 'live').length, 3);
   assert.equal(PRODUCTS.filter(p => p.s === 'shipped').length, 4);
   assert.equal(PRODUCTS.filter(p => p.s === 'building').length, 2);
@@ -246,5 +254,57 @@ test('About preserves builder identity and shares factual content with Markdown'
   for (const builder of builders) { assert.ok(html.body.includes(`alt="${builder.name} profile picture"`)); assert.ok(html.body.includes(`href="${builder.github}"`)); assert.ok(html.body.includes(`href="${builder.x}"`)); }
   for (const path of ['/', '/about', '/contact', '/privacy', '/explore.html']) {
     const {body} = await get(path, 'text/html'); assert.ok(body.includes(`href="${SITE_X}"`),path); assert.ok(!body.includes('x.com/0xmaiat'),path);
+  }
+});
+
+test('Updates has a minimal native embed with a dated heading and original-source fallback', async () => {
+  const { response, body } = await get('/updates', 'text/html');
+  assert.equal(response.status, 200);
+  assert.match(body, /rel="canonical" href="https:\/\/www.jeezlabs.io\/updates"/);
+  assert.match(body, /property="og:url" content="https:\/\/www.jeezlabs.io\/updates"/);
+  assert.match(body, /<h1>Updates<\/h1>/);
+  assert.doesNotMatch(body, /<iframe|<script[^>]+src="https:\/\/(platform|publish)\./);
+  for (const entry of updates) {
+    assert.ok(body.includes(`id="${entry.slug}"`));
+    assert.ok(body.includes(entry.title));
+    assert.ok(body.includes(`dateTime="${entry.published}"`));
+
+    assert.ok(body.includes(`href="${entry.sourceUrl}"`));
+    assert.ok(new Date(entry.published) <= new Date(UPDATES_UPDATED));
+  }
+  assert.match(body, /a little about us/); assert.doesNotMatch(body, /Meet Jerry/);
+  assert.doesNotMatch(body, /Close X embed|X provides this player|Load X post|INTRODUCTION \/ ORIGINAL/);
+  assert.match(body, /View original post on X/);
+  for (const path of ['/', '/about', '/contact', '/privacy', '/explore.html']) {
+    assert.ok((await get(path, 'text/html')).body.includes('href="/updates"'),path);
+  }
+  assert.ok((await get('/llms.txt', '*/*')).body.includes('/updates.md'));
+});
+test('Updates supports negotiated/direct Markdown, HEAD and invalid Accept', async () => {
+  const md=await get('/updates','text/markdown');
+  assert.equal(md.response.status,200); vary(md.response);
+  assert.ok(md.response.headers.get('content-type').startsWith('text/markdown'));
+  assert.equal(md.body,updatesMarkdown(SITE_URL));
+  assert.equal(md.body,(await get('/updates.md','*/*')).body);
+  for (const entry of updates) {assert.ok(md.body.includes(entry.published));assert.ok(md.body.includes(entry.sourceUrl));assert.ok(md.body.includes(entry.description));}
+  const head=await get('/updates','text/markdown','HEAD');
+  assert.equal(head.response.status,200); assert.equal(head.body,''); vary(head.response);
+  const denied=await get('/updates','application/json');assert.equal(denied.response.status,406);
+});
+
+test('all pages keep the same two primary links and expose external links in the footer', async () => {
+  for (const path of ['/', '/about', '/updates', '/contact', '/privacy', '/explore.html']) {
+    const {body}=await get(path,'text/html');
+    const header=body.match(/<header class="site-header">(.*?)<\/header>/s)?.[1];
+    assert.ok(header,path);
+    const nav=header.match(/<nav[^>]*>(.*?)<\/nav>/s)?.[1];
+    const items=[...nav.matchAll(/<a[^>]*href="([^"]+)"[^>]*>(.*?)<\/a>/g)].map(m=>({href:m[1],label:m[2]}));
+    assert.deepEqual(items,PRIMARY_NAV,path);
+    assert.ok(header.includes('aria-label="JeezLabs home"'));
+    const current=[...nav.matchAll(/<a[^>]*aria-current="page"[^>]*>/g)];
+    assert.equal(current.length,['/about','/updates'].includes(path)?1:0,path);
+    const footer=body.match(/<footer[^>]*>(.*?)<\/footer>/s)?.[1];
+    assert.ok(footer.includes(`href="${SITE_X}"`),path);
+    assert.ok(footer.includes('href="https://github.com/jh1nresh/jeezlabs"'),path);
   }
 });
