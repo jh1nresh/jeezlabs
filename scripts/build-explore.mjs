@@ -1,0 +1,14 @@
+import { readFileSync, writeFileSync } from "node:fs";
+import { Script } from "node:vm";
+import { PRODUCTS } from "../app/products.ts";
+const root = new URL("../studio/explore/", import.meta.url);
+const read = name => readFileSync(new URL(name, root), "utf8");
+const colors = ['#ff8db5','#ffc93c','#8dd3f6','#d3beff','#ffb7a6','#ffb7a6','#a9e6c6','#ffc93c','#d3beff','#8dd3f6','#ff8db5'];
+const rows = PRODUCTS.map((p,i) => [p.t,p.k,p.s[0].toUpperCase()+p.s.slice(1),p.builtBy ?? "jhinresh + ezven",p.href ?? null,p.repo ?? null,Boolean(p.hackathon),colors[i]]);
+const projectScript = "const projects="+JSON.stringify(rows).replace(/</g,"\\u003c")+";";
+const core = read("core.js"), island = read("island.js"), license = read("LICENSE");
+if ([core,island].some(s=>s.toLowerCase().includes("</script")) || license.includes("-->")) throw new Error("Unsafe inline delimiter");
+new Script(core+"\n"+projectScript+"\n"+island);
+const page=read("template.html").replace('<script src="core.js"></script>', '<!--\n'+license+'\n-->\n<script>'+core+'</script>').replace('/*PROJECTS*/',projectScript).replace('/*ISLAND*/',island);
+writeFileSync(new URL("../public/explore.html",import.meta.url),page);
+console.log("Built public/explore.html from shared products and studio/explore");

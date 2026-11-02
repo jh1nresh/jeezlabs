@@ -1,4 +1,4 @@
-export type ProductStatus = "live" | "building" | "shipped" | "paused";
+export type ProductStatus = "live" | "building" | "shipped" | "paused" | "preview";
 
 export interface Product {
   slug: string;
@@ -23,13 +23,13 @@ export const PRODUCTS: Product[] = [
   {
     slug: "dip",
     t: "DIP",
-    k: "group coordination",
+    k: "Group coordination",
     y: "2026",
     s: "building",
     art: "art-6",
     desc: "Real-time group readiness check. Share a link, everyone taps in, dip when it's time.",
     builtBy: "ezven",
-    href: "https://dip-neon-three.vercel.app",
+    href: "https://dip-neon-three.vercel.app/",
     preview: {
       lead: "A real-time group coordination tool. Share a link, everyone signals ready, and you dip together.",
       notes: [
@@ -40,9 +40,10 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
+    builtBy: "jhinresh + ezven",
     slug: "gimi",
-    t: "Gimi",
-    k: "agentic rentals",
+    t: "GIMI",
+    k: "Agentic rentals",
     y: "2026",
     s: "shipped",
     art: "art-8",
@@ -62,37 +63,15 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
-    slug: "pincher",
-    t: "Pincher",
-    k: "carpool matcher agent",
-    y: "2026",
-    s: "live",
-    art: "art-2",
-    desc: "Telegram-first carpool matcher for crypto conference side events.",
-    builtBy: "jhinresh",
-    href: "https://pincher.vercel.app",
-    repo: "https://github.com/JhiNResH/Pincher",
-    previewImage: "/previews/pincher.png",
-    preview: {
-      lead: "A ride agent for conference side events: create Telegram ride rooms, match riders by destination and time, and coordinate manual splits after one person calls Uber.",
-      notes: [
-        "Telegram-first ride rooms and group topics",
-        "Destination and departure-time matching",
-        "Manual USDC, Venmo, Zelle, cash, or local settlement",
-        "Built by jhinresh",
-      ],
-    },
-  },
-  {
     slug: "pingme",
-    t: "pingme",
-    k: "ping pong finder",
+    t: "PINGME",
+    k: "Ping pong finder",
     y: "2026",
     s: "live",
     art: "art-3",
     desc: "See who's down to play ping pong right now. Signal your status, get pinged when others are ready.",
     builtBy: "ezven",
-    href: "https://usepingme.com",
+    href: "https://usepingme.com/",
     repo: "https://github.com/Ferxxo-pa/pingme",
     previewImage: "/previews/pingme.png",
     preview: {
@@ -107,14 +86,14 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "distoken",
-    t: "DisToken",
-    k: "nft gallery viewer",
+    t: "DISTOKEN",
+    k: "NFT gallery viewer",
     y: "2026",
     s: "shipped",
     art: "art-1",
     desc: "Multi-chain NFT gallery viewer. Paste any wallet, see your entire collection across 8 blockchains instantly.",
     builtBy: "ezven",
-    href: "https://distoken.art",
+    href: "https://distoken.art/",
     repo: "https://github.com/Ferxxo-pa/DisToken",
     hackathon: "hackathon winner",
     previewImage: "/previews/distoken.png",
@@ -131,14 +110,14 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "transparent",
-    t: "Transparent",
-    k: "multiplayer party game",
+    t: "TRANSPARENT",
+    k: "Multiplayer party game",
     y: "2026",
     s: "shipped",
     art: "art-4",
     desc: "Real-money multiplayer party game on Solana. Players buy in with SOL, answer personal questions, and the most transparent player wins the pot.",
     builtBy: "ezven",
-    href: "https://transparent-five.vercel.app",
+    href: "https://transparent-five.vercel.app/",
     repo: "https://github.com/Ferxxo-pa/transparent",
     previewImage: "/previews/transparent.png",
     preview: {
@@ -154,14 +133,14 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "redlineai",
-    t: "Redline AI",
-    k: "law review scanner",
+    t: "REDLINE AI",
+    k: "Law review scanner",
     y: "2026",
     s: "live",
     art: "art-5",
     desc: "Automated law review scanner. Upload a manuscript, get instant style violation flags with exact rule citations.",
     builtBy: "ezven",
-    href: "http://redlineai.xyz/",
+    href: "https://redlineai.xyz/",
     previewImage: "/previews/redlineai.png",
     preview: {
       lead: "Scan your law review paper for style violations instantly. Supports PDF, DOCX, and plain text. 61+ rules with AI-powered context-aware detection.",
@@ -174,15 +153,16 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
+    builtBy: "jhinresh + ezven",
     slug: "agentshack",
-    t: "AgentShack",
+    t: "AGENTSHACK",
     k: "AI agent marketplace",
     y: "2026",
     s: "live",
     art: "art-2",
     desc: "AI agent marketplace for hiring, subscribing to, and forking agents with verifiable work history.",
     hackathon: "hackathon winner",
-    href: "https://agentshack.io",
+    href: "https://agentshack.io/",
     repo: "https://github.com/JhiNResH/maiat-dojo",
     previewImage: "/previews/dojo.png",
     preview: {
@@ -196,32 +176,33 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
-    slug: "jiagon",
-    t: "SKLL-R",
-    k: "verified reviews",
-    y: "2026",
-    s: "live",
-    art: "art-1",
-    desc: "Receipt-gated review prototype backed by onchain payment proofs.",
-    builtBy: "jhinresh",
-    href: "https://jiagon.vercel.app",
-    repo: "https://github.com/JhiNResH/SLL-R",
-    previewImage: "/previews/jiagon.png",
-    preview: {
-      lead: "A verified-review experiment where payment proof and product feedback sit in the same flow.",
-      notes: ["Receipt-gated review model", "Onchain payment proof", "Built by jhinresh"],
-    },
+    "slug": "output",
+    "t": "OUTPUT",
+    "k": "Print-production network \u00b7 sandbox",
+    "y": "2026",
+    "s": "preview",
+    "art": "art-3",
+    "desc": "Distributed print-production network connecting jobs with print shops. Sandbox preview.",
+    "builtBy": "JeezLabs",
+    "href": "https://output.jeezlabs.io/",
+    "preview": {
+      "lead": "Print-production network \u00b7 sandbox",
+      "notes": [
+        "Sandbox preview"
+      ]
+    }
   },
   {
+    builtBy: "jhinresh + ezven",
     slug: "maiat-protocol",
-    t: "Maiat Protocol",
-    k: "agent trust layer",
+    t: "MAIAT PROTOCOL",
+    k: "Agent trust layer",
     y: "2026",
-    s: "building",
+    s: "shipped",
     art: "art-3",
     desc: "Trust oracle for AI agents, tokens, attestations, and agentic commerce.",
     hackathon: "hackathon winner",
-    href: "https://app.maiat.io",
+    href: "https://app.maiat.io/",
     repo: "https://github.com/JhiNResH/maiat-protocol",
     previewImage: "/previews/maiat-protocol.png",
     preview: {
@@ -231,46 +212,39 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "wanderly",
-    t: "SAV-E",
-    k: "ios travel app",
+    t: "savvy",
+    k: "iOS travel app",
     y: "2026",
     s: "building",
     art: "art-4",
-    desc: "AI-powered place discovery and trip planning app for iOS.",
+    desc: "Private place-memory app for iOS. Save places from shared links; review uncertain matches before adding them to a private map.",
     builtBy: "jhinresh",
     repo: "https://github.com/JhiNResH/wanderly",
     previewImage: "/previews/wanderly.png",
     preview: {
-      lead: "Save places from Instagram, Threads, Xiaohongshu, or any app; SAV-E extracts place details, pins them to a personal map, and helps plan trips.",
-      notes: [
-        "AI place extraction from shared links and images",
-        "MapKit place map, place lists, and trip planning",
-        "Share Extension and App Clip support",
-        "Built by jhinresh",
-      ],
+      lead: "savvy saves places from shared links, with Review for uncertain matches and a private map for confirmed places.",
+      notes: ["Shared links", "Review before saving", "Private place memory"],
     },
   },
   {
-    slug: "cloak",
-    t: "Cloak",
-    k: "ios virtual try-on",
-    y: "2026",
-    s: "shipped",
-    art: "art-5",
-    desc: "Virtual try-on iOS app for trying clothes with your own photo.",
-    builtBy: "jhinresh",
-    repo: "https://github.com/JhiNResH/cloak",
-    previewImage: "/previews/cloak.png",
-    preview: {
-      lead: "Cloak is an iOS virtual try-on app for testing clothing looks with your own photo.",
-      notes: ["Use a personal photo", "Preview clothing looks on iOS", "Built by jhinresh"],
-    },
-  },
+    "slug": "eznest",
+    "t": "EZNest",
+    "k": "Nesting for print shops \u00b7 preview",
+    "y": "2026",
+    "s": "preview",
+    "art": "art-3",
+    "desc": "Nesting workspace for print shops. Preview.",
+    "builtBy": "JeezLabs",
+    "href": "https://eznest.jeezlabs.io/",
+    "preview": {
+      "lead": "Nesting for print shops \u00b7 preview",
+      "notes": [
+        "Preview"
+      ]
+    }
+  }
 ];
 
 export const STATUS_LABEL: Record<ProductStatus, string> = {
-  live: "live",
-  building: "building",
-  shipped: "shipped",
-  paused: "paused",
+  live: "live", building: "building", shipped: "shipped", paused: "paused", preview: "preview",
 };
