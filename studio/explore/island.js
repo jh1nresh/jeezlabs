@@ -1,16 +1,16 @@
 // Colorfigures primitives, scoped to two SVG surfaces. No mountFigure or animation loop.
 const isInfo=[
- ['The commons','Group coordination','DIP focuses on group coordination.',['Coordination','Groups'],'hall'],
- ['Rental house','Agentic rentals','GIMI explores agentic rentals.',['Agents','Rentals'],'house'],
- ['Table tennis club','Ping pong finder','PINGME helps people find table tennis.',['Table tennis','Discovery'],'club'],
- ['Gallery','NFT gallery viewer','DISTOKEN is an NFT gallery viewer.',['NFT','Gallery'],'gallery'],
- ['Play house','Multiplayer party game','TRANSPARENT is a multiplayer party game.',['Multiplayer','Party game'],'play'],
- ['Review library','Law review scanner','REDLINE AI focuses on legal review and document scanning.',['Documents','Legal review'],'library'],
- ['Agent market','AI agent marketplace','AGENTSHACK is a marketplace for discovering AI agents.',['Agents','Marketplace'],'market'],
- ['Dispatch house','Distributed print-production network','OUTPUT connects production jobs with print shops through a distributed production network. Explore the sandbox preview.',['Jobs','Print shops','Network'],'dispatch'],
- ['Signal tower','Agent trust layer','MAIAT PROTOCOL explores a trust layer for agents.',['Agents','Trust layer'],'tower'],
+ ['The commons','Group coordination','DIP lets a group share a link and signal when everyone is ready.',['Coordination','Groups'],'hall'],
+ ['Rental house','Agentic rentals','GIMI is an AI rental agent for school, community and hackathon inventory.',['Agents','Rentals'],'house'],
+ ['Table tennis club','Ping pong finder','PINGME shows who is ready to play table tennis and sends a notification when others are ready.',['Table tennis','Discovery'],'club'],
+ ['Gallery','NFT gallery viewer','DISTOKEN displays NFT collections from a wallet address across multiple blockchains.',['NFT','Gallery'],'gallery'],
+ ['Play house','Multiplayer party game','TRANSPARENT is a multiplayer party game on Solana. Players answer personal questions to win the pot.',['Multiplayer','Party game'],'play'],
+ ['Review library','Law review scanner','REDLINE AI scans law review manuscripts for style violations and cites the relevant rules.',['Documents','Legal review'],'library'],
+ ['Agent market','AI agent marketplace','AGENTSHACK lets people hire, subscribe to and fork AI agents with verifiable work history.',['Agents','Marketplace'],'market'],
+ ['Dispatch house','Distributed print-production network','OUTPUT connects print jobs with print shops through a distributed production network. Sandbox preview.',['Jobs','Print shops','Network'],'dispatch'],
+ ['Signal tower','Agent trust layer','MAIAT PROTOCOL is a trust oracle for AI agents, tokens, attestations and agentic commerce.',['Agents','Trust layer'],'tower'],
  ['Place archive','Private place memory for iOS','savvy saves places from shared links. Uncertain places stay in Review; confirmed places become private map memories.',['Shared links','Review','Map'],'archive'],
- ['Layout workshop','Nesting for print shops','EZNest is a nesting workspace for print shops, focused on arranging pieces on material. Explore the preview.',['Nesting','Layouts','Print shops'],'workshop']
+ ['Layout workshop','Nesting for print shops','EZNest arranges pieces on material for print shops. Preview.',['Nesting','Layouts','Print shops'],'workshop']
 ];
 const isPositions=[[75, 55], [195, 55], [435, 70], [65, 165], [185, 165], [305, 165], [425, 180], [90, 285], [210, 285], [330, 285], [450, 290]];
 const isColors=['#b7c69b', '#d6ae88', '#b1c7a0', '#c1b5cc', '#d29f91', '#d7c8a7', '#a8b9a4', '#e2d27a', '#a4b8c7', '#becd9b', '#c3a5a0']; // eslint-disable-line @typescript-eslint/no-unused-vars -- shared drawing globals
@@ -74,6 +74,8 @@ document.querySelector('#is-map').addEventListener('keydown',e=>{const target=e.
 document.querySelector('#project-select').addEventListener('change',e=>isEnter(+e.target.value));document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>isSetView(b.dataset.view)));
 document.querySelector('#back-island').addEventListener('click',()=>{isSetView('island');isReset();if(isFrame){cancelAnimationFrame(isFrame);isFrame=0;}isFlushRender();document.querySelector('#island-view').scrollIntoView({block:'center',behavior:'auto'});const building=document.querySelector(`[data-building="${isSelected}"]`);building.scrollIntoView({block:'nearest',inline:'center',behavior:'auto'});building.focus({preventScroll:true});});
 isSelect(7);
+// Details start closed; every Quick Find project must be selectable on first use.
+document.querySelector('#project-select').value='';
 // Camera input owns one coalesced frame; no background render loop.
 const isCanvas=document.querySelector('.map-svg'),isMotion=matchMedia('(prefers-reduced-motion: reduce)');
 let isFrame=0,isSuppressUntil=0,isFlight=null;
