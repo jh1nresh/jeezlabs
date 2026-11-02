@@ -1,5 +1,6 @@
 "use client";
 
+import { SITE_X } from "../lib/site";
 import Link from "next/link";
 import { useState } from "react";
 import { PRODUCTS, type ProductStatus } from "./products";
@@ -26,7 +27,7 @@ export default function ProductIndex() {
   return <div className={styles.root}>
     <a className="skip" href="#products">Skip to products</a>
     <div className="page">
-      <header><Link className="brand" href="/" aria-label="JeezLabs home"><span className="brand-mark" aria-hidden="true" />JEEZLABS</Link><span className="header-note">INDEPENDENT PRODUCT STUDIO</span><nav aria-label="Main navigation"><a href="/about">ABOUT</a><OutLink href="https://github.com/jh1nresh/jeezlabs">GH ↗</OutLink><OutLink href="https://x.com/0xmaiat">X ↗</OutLink></nav></header>
+      <header><Link className="brand" href="/" aria-label="JeezLabs home"><span className="brand-mark" aria-hidden="true" />JEEZLABS</Link><span className="header-note">INDEPENDENT PRODUCT STUDIO</span><nav aria-label="Main navigation"><a href="/about">ABOUT</a><OutLink href="https://github.com/jh1nresh/jeezlabs">GH ↗</OutLink><OutLink href={SITE_X}>X ↗</OutLink></nav></header>
       <nav className="browse-mode" aria-label="Browse mode"><Link href="/" aria-current="page">01 / INDEX</Link><a href="/explore.html">02 / EXPLORE <span aria-hidden="true">↗</span></a></nav>
       <main id="products">
         <h1 className="sr-only">JeezLabs product lab — product drop index</h1>
@@ -42,7 +43,7 @@ export default function ProductIndex() {
         </li>)}</ol>
         <div className="summary"><div className="totals" role="group" aria-label="Full collection statistics">{FILTERS.filter(s => s !== "all").map(s => <span className="total" key={s}>{s.toUpperCase()} <strong>{pad(counts[s])}</strong></span>)}<span className="total">WINNERS <strong>{pad(PRODUCTS.filter(p => p.hackathon).length)}</strong></span></div><div className="maker-legend" role="group" aria-label="Maker initials"><span><b className="maker">JH</b> JHINRESH</span><span><b className="maker ez">EZ</b> EZVEN</span><span><b className="maker">JH</b><b className="maker ez">EZ</b> SHARED</span><span><b className="maker studio">JL</b> JEEZLABS</span></div></div>
       </main>
-      <footer><p><span className="closing">JeezLabs</span><br />Independent product studio</p><div className="footer-links"><a href="/about">ABOUT THE STUDIO ↗</a><a href="#products">BACK TO TOP ↑</a></div></footer>
+      <footer><p><span className="closing">JeezLabs</span><br />Independent product studio</p><div className="footer-links"><a href="/about">ABOUT THE STUDIO ↗</a><Link href="/contact">CONTACT</Link><Link href="/privacy">PRIVACY</Link><a href="#products">BACK TO TOP ↑</a></div></footer>
     </div>
   </div>;
 }

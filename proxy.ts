@@ -1,10 +1,12 @@
+import { SITE_URL } from "./lib/site";
+import { infoMarkdown } from "./lib/info-pages";
 import Negotiator from "negotiator";
 import { NextRequest, NextResponse } from "next/server";
 import { aboutMarkdown, exploreMarkdown, homepageMarkdown, llmsText, notFoundMarkdown } from "./lib/agent-content";
 
 // Captured from public/ by next.config.ts so new static assets keep their normal behavior.
 const publicFiles = new Set<string>(JSON.parse(process.env.JEEZLABS_PUBLIC_FILES ?? "[]"));
-const fixedResources = new Set(["/favicon.ico", "/robots.txt", "/sitemap.xml"]);
+const fixedResources = new Set(["/favicon.ico", "/robots.txt", "/sitemap.xml", "/opengraph-image"]);
 const htmlType = "text/html; charset=utf-8";
 const markdownType = "text/markdown; charset=utf-8";
 
@@ -17,7 +19,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const direct = path === "/index.md" || path === "/about.md" || path === "/llms.txt" || path === "/explore.md";
+  const direct = path === "/index.md" || path === "/about.md" || path === "/llms.txt" || path === "/explore.md" || path === "/contact.md" || path === "/privacy.md";
   const type = direct ? markdownType : new Negotiator({
     headers: { accept: request.headers.get("accept") ?? undefined },
   }).mediaType([htmlType, markdownType]);
@@ -44,6 +46,10 @@ export function proxy(request: NextRequest) {
     case "/index.md": body = homepageMarkdown(); break;
     case "/about":
     case "/about.md": body = aboutMarkdown; break;
+    case "/contact":
+    case "/contact.md": body = infoMarkdown("contact", SITE_URL); break;
+    case "/privacy":
+    case "/privacy.md": body = infoMarkdown("privacy", SITE_URL); break;
     case "/llms.txt": body = llmsText; break;
     case "/explore.html":
     case "/explore.md": body = exploreMarkdown(); break;
