@@ -173,7 +173,13 @@ test('approved index has eleven products and the requested status changes', asyn
   assert.equal(PRODUCTS.length, 11);
   assert.ok(!PRODUCTS.some(p => ['pincher', 'jiagon', 'cloak'].includes(p.slug)));
   assert.equal(PRODUCTS.find(p => p.slug === 'maiat-protocol')?.s, 'shipped');
-  assert.equal(PRODUCTS.find(p => p.slug === 'wanderly')?.t, 'savvy');
+  const savvy = PRODUCTS.find(p => p.slug === 'wanderly');
+  assert.equal(savvy?.t, 'savvy');
+  assert.equal(savvy?.href, 'https://savvy.jeezlabs.io/');
+  assert.equal(savvy?.repo, 'https://github.com/jh1nresh/SAV-E');
+  assert.equal(PRODUCTS.find(p => p.slug === 'agentshack')?.repo, 'https://github.com/jh1nresh/agentshack');
+  assert.equal(PRODUCTS.find(p => p.slug === 'gimi')?.repo, 'https://github.com/jh1nresh/Gimi');
+  assert.equal(PRODUCTS.find(p => p.slug === 'maiat-protocol')?.repo, undefined);
   assert.equal(PRODUCTS.filter(p => p.s === 'live').length, 3);
   assert.equal(PRODUCTS.filter(p => p.s === 'shipped').length, 4);
   assert.equal(PRODUCTS.filter(p => p.s === 'building').length, 2);

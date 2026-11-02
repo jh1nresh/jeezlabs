@@ -142,3 +142,15 @@ for source parity. Browser navigation and geometry checks at actual 1600px and
 About, Updates and Explore, with no horizontal overflow. About / Updates / home
 links were exercised. No dependencies or media behavior changed; existing audit
 findings remain outside this navigation fix. No merge or deployment is included.
+
+## Verified source links (2026-11-02)
+
+The owner confirmed savvy's website (https://savvy.jeezlabs.io/) and source
+(https://github.com/jh1nresh/SAV-E). AgentShack now links to jh1nresh/agentshack,
+and GIMI to jh1nresh/Gimi; both were verified as public repositories. About and
+Contact use the current jh1nresh GitHub profile. The old MAIAT Protocol repository
+returned 404 and no matching public repository appeared in the account's complete
+82-repository listing, so its broken source link was removed; its website stays.
+The three ezven repository links were verified public and retained. No private
+repository links were added. Index, Explore and Markdown share the product data.
+Lint, Webpack build, typecheck and 42 tests passed on the identical source copy.
