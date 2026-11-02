@@ -69,3 +69,37 @@ reflected into Markdown. JSON-LD escapes `<`. The Accept parser is the maintaine
 API operations, remote content fetches, or production data changes are introduced.
 The existing dependency tree has npm audit findings (including Next.js); upgrading
 that framework and evaluating advisory applicability is a separate follow-up.
+
+## Follow-up to the supplied 68/100 report (2026-11-02)
+
+Read-back of the production deployment at commit `53a7e43` already confirmed
+Markdown homepage negotiation, a Markdown 404 body, Organization JSON-LD,
+when-to-use guidance and the sitemap. The supplied score is not evidence of the
+current deployment's behavior. Repeated `Vary` header fields must be combined;
+HTML has Next.js fields plus a separate `Accept` field.
+
+This follow-up adds the missing Open Graph metadata and generated 1200×630 PNG,
+Contact/Privacy pages (HTML and Markdown, each with substantive content), content
+revision dates in the sitemap, and the confirmed studio X URL. About now uses
+the black index typography and retains both builders' portraits and personal
+profile links. Its prose and Markdown share the same facts.
+
+The owner confirmed there is no contact email or address. The Organization
+contactPoint links to the real Contact page; it does not invent email, telephone
+or PostalAddress fields. Therefore the audit's email/address completeness item
+remains unsatisfied. The privacy notice describes this directory's application
+behavior and hosting boundary, not a policy for every linked product.
+
+Validation: lint, Webpack production build, TypeScript and 39 tests pass. Tests
+cover every public page, Markdown representation, image asset, HEAD, 404,
+metadata, sitemap date, existing RSC and product behavior. Browser checks cover
+desktop/narrow About, Contact and Privacy, builder links, footer wrapping and
+console errors. Production read-back of these new additions follows separate
+merge/deployment authorization; no new Is Agentic score is claimed.
+
+Brand search placement, Search Console indexing/ownership and external press
+links require search-engine time, owner credentials or separate outreach
+approval. Markup changes cannot guarantee a top-ten ranking.
+
+References: https://ogp.me/ ; https://www.sitemaps.org/protocol.html ;
+https://llmstxt.org/ ; https://schema.org/Organization .

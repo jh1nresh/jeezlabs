@@ -1,4 +1,5 @@
 export const SITE_URL = "https://www.jeezlabs.io";
+export const SITE_X = "https://x.com/jeezlabsio";
 export const SITE_TITLE = "JeezLabs — product lab & product index";
 export const SITE_DESCRIPTION = "JeezLabs is a two-person product lab building and shipping small internet products, iOS apps, and agent and protocol experiments.";
 
@@ -9,5 +10,6 @@ export const organization = {
   name: "JeezLabs",
   description: SITE_DESCRIPTION,
   url: `${SITE_URL}/`,
-  sameAs: ["https://github.com/jh1nresh/jeezlabs"],
+  contactPoint: { "@type": "ContactPoint", contactType: "General inquiries", url: `${SITE_URL}/contact` },
+  sameAs: ["https://github.com/jh1nresh/jeezlabs", SITE_X],
 };
