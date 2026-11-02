@@ -14,5 +14,5 @@ export const updates = [
   },
 ] as const;
 export function updatesMarkdown(origin: string) {
-  return `# JeezLabs updates\n\nFilms, project news and appearances from the lab.\n\n${updates.map(update=>`## ${update.title}\n\n- Published: ${update.published}\n- Type: ${update.kind}\n- Source: ${update.source} (${update.sourceHandle})\n\n${update.description}\n\n- [Watch the original post on X](${update.sourceUrl})\n`).join('\n')}\nThe optional embedded X player loads only after a visitor chooses to load it. Playback is provided by X and may require signing in.\n\n- [Product index](${origin}/index.md)\n- [About JeezLabs](${origin}/about.md)\n`;
+  return `# JeezLabs updates\n\nFilms, project news and appearances from the lab.\n\n${updates.map(update=>`## ${update.title}\n\n- Published: ${update.published}\n- Type: ${update.kind}\n- Source: ${update.source} (${update.sourceHandle})\n\n${update.description}\n\n- [Watch the original post on X](${update.sourceUrl})\n`).join('\n')}\nThe HTML page loads an embedded X post and video. This Markdown version does not load external media. Playback on the HTML page is provided by X and may require signing in.\n\n- [Product index](${origin}/index.md)\n- [About JeezLabs](${origin}/about.md)\n`;
 }

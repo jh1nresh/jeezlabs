@@ -250,7 +250,7 @@ test('About preserves builder identity and shares factual content with Markdown'
   }
 });
 
-test('Updates has dated source-backed content without loading external media on first render', async () => {
+test('Updates has a minimal native embed with a dated heading and original-source fallback', async () => {
   const { response, body } = await get('/updates', 'text/html');
   assert.equal(response.status, 200);
   assert.match(body, /rel="canonical" href="https:\/\/www.jeezlabs.io\/updates"/);
@@ -261,12 +261,13 @@ test('Updates has dated source-backed content without loading external media on 
     assert.ok(body.includes(`id="${entry.slug}"`));
     assert.ok(body.includes(entry.title));
     assert.ok(body.includes(`dateTime="${entry.published}"`));
-    assert.ok(body.includes(entry.sourceHandle));
+
     assert.ok(body.includes(`href="${entry.sourceUrl}"`));
     assert.ok(new Date(entry.published) <= new Date(UPDATES_UPDATED));
   }
   assert.match(body, /a little about us/); assert.doesNotMatch(body, /Meet Jerry/);
-  assert.match(body, /Load X post/); assert.match(body, /X may process request information/);
+  assert.doesNotMatch(body, /Close X embed|X provides this player|Load X post|INTRODUCTION \/ ORIGINAL/);
+  assert.match(body, /View original post on X/);
   for (const path of ['/', '/about', '/contact', '/privacy', '/explore.html']) {
     assert.ok((await get(path, 'text/html')).body.includes('href="/updates"'),path);
   }

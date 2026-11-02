@@ -113,14 +113,16 @@ were verified against the public post and X oEmbed response. The page's update
 date is separate from the original post date. No transcript, duration or video
 performance claim was inferred from inaccessible playback.
 
-The X iframe is absent from initial HTML and client render. A visitor explicitly
-loads it, can close it, and can always use the original link. No external X SDK
-runs in the host document. The privacy page describes this optional connection.
+The HTML page loads the official X widget script after hydration, and the
+widget owns the iframe's height. The host supplies no fixed-height frame, poster,
+close button or explanatory panel. The widget viewport is clipped to its native
+16px corner radius so the embedded document's white canvas cannot show through
+at the four corners. The original link is the SSR/loading/failure fallback;
+Markdown never loads X. Privacy copy explicitly describes the HTML connection.
 
-Lint, Webpack build, typecheck and 41 tests passed. Browser checks exercised
-iframe counts 0/1/0/1, keyboard activation and focus return to the load button.
-At 320px, the Updates document stayed within the viewport; Index and Explore
-navigation also stayed contained at a narrower 291px browser viewport. The X
-frame endpoint loaded, but actual video playback was unavailable in the test
-browser and is not claimed as verified. A visible original-source fallback
-remains available above the player. No merge or deployment is included.
+Lint, Webpack build, typecheck and 41 tests passed. Browser checks confirm the
+native post and video poster appear, iframe height follows content rather than
+640px, and desktop/narrow layouts stay contained. The iframe is removed on
+navigation, with per-mount cancellation guarding late SDK completions. Actual
+video playback is not required to establish these layout checks. No merge or
+deployment is included.

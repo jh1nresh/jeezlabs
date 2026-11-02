@@ -13,16 +13,12 @@ export const metadata: Metadata = {
 const dateFormat = new Intl.DateTimeFormat('en', { day:'2-digit', month:'short', year:'numeric', timeZone:'UTC' });
 export default function UpdatesPage() {
   return <InfoLayout title="Updates" updated={UPDATES_UPDATED}>
-    <p className={styles.intro}>Films, project news and appearances from the lab.</p>
     <ol className={styles.feed} aria-label="Studio updates">
       {[...updates].sort((a,b)=>b.published.localeCompare(a.published)).map(update=><li key={update.slug} id={update.slug}>
         <article aria-labelledby={`${update.slug}-title`}>
-          <div className={styles.meta}><time dateTime={update.published}>{dateFormat.format(new Date(`${update.published}T00:00:00Z`))}</time><span>{update.kind}</span></div>
+          <div className={styles.meta}><time dateTime={update.published}>{dateFormat.format(new Date(`${update.published}T00:00:00Z`))}</time></div>
           <h2 id={`${update.slug}-title`} className={styles.title}>{update.title}</h2>
-          <p>{update.description}</p>
-          <p className={styles.attribution}>{update.source} <span>{update.sourceHandle}</span></p>
-          <div className={styles.source}><a href={update.sourceUrl} target="_blank" rel="noopener noreferrer">Watch original on X ↗</a><p>Playback unavailable here? The original post remains linked above.</p></div>
-          <PostEmbed postId={update.postId} title={update.title} />
+          <PostEmbed postId={update.postId} title={update.title} sourceUrl={update.sourceUrl} />
         </article>
       </li>)}
     </ol>

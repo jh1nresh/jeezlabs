@@ -35,7 +35,7 @@ export const infoPages = {
         'Following a product, GitHub or X link sends you to another service, which receives your request and applies its own privacy practices. Review that service’s notice before sharing personal information or using its account features.',
       ], links: [['Vercel privacy notice', 'https://vercel.com/legal/privacy-notice']] },
       { title: 'Optional X embeds', paragraphs: [
-        'Updates can include an external X post and video. No X player is loaded until you choose to load it. Loading it connects your browser to X, which may receive request information or use its own cookies and account state under its privacy practices. You can close the embed or open the source post instead; the update text remains readable without it.',
+        'The Updates HTML page loads X’s embedding script to display external posts and videos. Visiting that page with JavaScript enabled connects your browser to X, which may receive request information or use its own cookies and account state under its privacy practices. You can read /updates.md without loading external media. Embedded playback and controls are provided by X.',
       ], links: [['X privacy policy', 'https://x.com/en/privacy']] },
       { title: 'Questions and changes', paragraphs: [
         'For questions about this directory or this notice, use the public contact options on the Contact page. Do not include private information in a public post. The date on this page records its latest content update; changes to the directory’s data handling should be reflected here.',
