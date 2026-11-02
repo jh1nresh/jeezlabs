@@ -60,3 +60,16 @@ and hosting-specific headers require separate checks before release.
   and hosting-specific headers remain outside this local evidence.
 - Security: no new inputs, network calls, execution or production endpoints.
   Product text remains escaped and the builder checks inline delimiters.
+
+## Merge follow-up (2026-11-02)
+
+Quick Find now starts on an empty disabled placeholder. Browser read-back was
+empty on fresh load; selecting OUTPUT first completed the camera entry and
+opened its Preview details. `.nvmrc` pins the tested Node 22.22.3 runtime.
+Explore descriptions now use concrete functions already stated in
+`app/products.ts`; sandbox/preview and the illustration disclosure remain.
+
+Lint and TypeScript passed; all 35 tests passed again. The default Turbopack
+rebuild failed resolving its generated Google font imports. The alternate
+`npm run build -- --webpack` production build passed, followed by the full HTTP
+suite. No font or bundler configuration was changed to hide that limitation.
