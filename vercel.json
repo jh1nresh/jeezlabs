@@ -13,5 +13,11 @@
         }
       ]
     }
-  ]
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "codex/remove-injected-loaders-20261107-01a1b426": false,
+      "master": false
+    }
+  }
 }
