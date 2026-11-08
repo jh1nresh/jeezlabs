@@ -1,3 +1,5 @@
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 import { readFileSync, writeFileSync } from "node:fs";
 import { Script } from "node:vm";
 import { portableHeader } from "../lib/navigation.ts";
